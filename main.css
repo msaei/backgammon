@@ -38,6 +38,10 @@
 
  }
 
+ .red {
+ 	background: red;
+ }
+
  .break {
  	clear: both;
  }
