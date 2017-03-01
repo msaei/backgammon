@@ -22,6 +22,7 @@
 	background-color: gray;
 	border: solid black 1px;
 	float: left;
+	position: relative;
  }
 
  .hoverd {
@@ -33,8 +34,15 @@
  	width: 38px;
  	border-radius: 50%;
  	background: blue;
+ 	border:solid black 1px;
+
  }
 
  .break {
  	clear: both;
  }
+
+.bottom {
+	position: absolute;
+	bottom: 0px;
+}

@@ -5,8 +5,8 @@ $( init );
 function init() {
 
 	$('.checker').draggable({
-		revert: true
-
+		revert: true ,
+		stack: '.checker'
 	});
 
 	$(".room").droppable({ 
