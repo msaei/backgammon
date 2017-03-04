@@ -91,4 +91,20 @@ function initBoard() {
 
 	//bottom right bar add to board
 	$('<div class="bar"></div>').appendTo('#gameBoard');
+
+	loadPos(rooms);
+}
+
+function loadPos(posArr) {
+	for(i=1; i<25; i++) {
+		checkerCount = posArr[i];
+		roomId = '#room' + i ;
+		checker = (checkerCount > 0 ? '<div class="checker red"></div>' : '<div class="checker blue"></div>');
+		count = (checkerCount > 0 ? checkerCount : -checkerCount);
+		
+		for (j=0; j < count; j++) {
+				$(roomId).children().append(checker);
+		}	
+	}
+
 }
