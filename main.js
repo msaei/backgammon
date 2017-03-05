@@ -1,10 +1,13 @@
 // javascript code comes here
 var rooms = [0, 2, 0, 0, 0, 0, -5, 0, -3, 0, 0, 0, 5, -5, 0, 0, 0, 3, 0, 5, 0, 0, 0, 0, -2, 0];
+var die1, die2;
 $( init );
 
 function init() {
 
 	initBoard();
+	loadPos(rooms);
+	throwDice();
 
 
 	$('.checker').draggable({
@@ -91,8 +94,6 @@ function initBoard() {
 
 	//bottom right bar add to board
 	$('<div class="bar"></div>').appendTo('#gameBoard');
-
-	loadPos(rooms);
 }
 
 function loadPos(posArr) {
@@ -106,5 +107,14 @@ function loadPos(posArr) {
 				$(roomId).children().append(checker);
 		}	
 	}
+
+}
+
+function throwDice() {
+	die1 = Math.floor(Math.random() * 6 + 1);
+	die2 = Math.floor(Math.random() * 6 + 1);
+	var diceHtml = '<div class="die">' + die1 + '</div>';
+	diceHtml += '<div class="die">' + die2 + '</div>';
+	$('#dice').html(diceHtml);
 
 }

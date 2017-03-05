@@ -38,6 +38,26 @@
 
  }
 
+ .die {
+ 	float: left;
+ 	height: 30px;
+ 	width: 30px;
+ 	border-radius: 5px
+ 	font-size: 20px;
+ 	text-align: center;
+ 	background: pink;
+ 	border: solid black 1px;
+ 	 }
+
+ #dice {
+ 	clear: both;
+ 	width: 65px;
+ 	margin-right: auto;
+ 	margin-left: auto;
+ 	border: solid black 2px;
+ 	margin: 5px;
+ }
+
  .red {
  	background: red;
  }
