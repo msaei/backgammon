@@ -1,43 +1,69 @@
 // javascript code comes here
 var rooms = [0, 2, 0, 0, 0, 0, -5, 0, -3, 0, 0, 0, 5, -5, 0, 0, 0, 3, 0, 5, 0, 0, 0, 0, -2, 0];
 var die1, die2;
+var player = -1;
 $( init );
 
 function init() {
 
 	initBoard();
 	loadPos(rooms);
+
+	gameFlow();
+}
+
+function gameFlow() {
 	throwDice();
-
-
-	$('.checker').draggable({
-		revert: true ,
-		stack: '.checker',
-		helper: 'original'
-	});
-
-	$(".room").droppable({ 
-		accept: '.checker',
-		hoverClass: 'hoverd',
-		drop: droped
-	});
 }
 
 function droped(event, ui) {
-	//ui.draggable.remove();
-	//var newElement = ui.draggable.clone();
-	var newElement = '<div class="' + ui.draggable.attr('class') + '"></div>';
-	alert($(this).data('num'));
-	ui.draggable.remove();
+	var startRoom = ui.draggable.parent().parent().data('num');
+	var dropRoom = $(this).data('num')
+	if (moveIsAlowed(startRoom, dropRoom)) {
+		var newElement = '<div class="' + ui.draggable.attr('class') + '"></div>';
+		//alert($(this).data('num'));
+		//alert(ui.draggable.parent().parent().data('num'));
+		ui.draggable.remove();
 
-	$(this).children().append(newElement);
+		$(this).children().append(newElement);
 
-	$('.checker').draggable({
-		revert: true ,
-		stack: '.checker',
-		helper: 'original'
-	});
+		$('.checker').draggable({
+			revert: true ,
+			stack: '.checker',
+			helper: 'original'
+		}); 
 
+		regMove(startRoom, dropRoom);
+	}
+
+}
+
+function moveIsAlowed(started, droped) {
+	// check if right players checker moved
+	if (rooms[started] * player > 1) {
+		// check if die one number moved
+		if(started + die1 * player == droped) {
+			// check if drop room blocked width opponent
+			if(rooms[droped] * player > -2) {
+				return true;
+			}
+			
+		}
+		// check if die one number moved
+		if(started + die2 * player == droped) {
+			// check if drop room blocked width opponent
+			if(rooms[droped] * player > -2) {
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+function regMove(started, droped) {
+	rooms[started] = rooms[started] - player;
+	rooms[droped] = rooms[droped] + player;
+	console.log(rooms);
 }
 
 function initBoard() {
@@ -108,6 +134,14 @@ function initBoard() {
 
 	//bottom right bar add to board
 	$('<div class="bar"></div>').appendTo('#gameBoard');
+
+
+	// make rooms dropable
+	$(".room").droppable({ 
+		accept: '.checker',
+		hoverClass: 'hoverd',
+		drop: droped
+	});
 }
 
 function loadPos(posArr) {
@@ -122,6 +156,13 @@ function loadPos(posArr) {
 		}	
 	}
 
+	//make checkers draggable
+	$('.checker').draggable({
+		revert: true ,
+		stack: '.checker',
+		helper: 'original'
+	});
+
 }
 
 function throwDice() {
@@ -129,6 +170,12 @@ function throwDice() {
 	die2 = Math.floor(Math.random() * 6 + 1);
 	var diceHtml = '<div class="die">' + die1 + '</div>';
 	diceHtml += '<div class="die">' + die2 + '</div>';
-	$('#rightArea').html(diceHtml);
+
+	if (player == -1) {
+		$('#rightArea').html(diceHtml);
+	} else {
+		$('#leftArea').html(diceHtml);
+	}
+	
 
 }
