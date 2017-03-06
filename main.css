@@ -16,14 +16,30 @@
 	float: left;
  }
 
+  .midbar {
+ 	height: 40px;
+ 	width: 40px;
+ 	background-color: brown;
+ 	float: left;
+ }
+
  .room {
- 	height: 240px;
-	width: 40px;
+ 	height: 238px;
+	width: 38px;
 	background-color: gray;
-	border: solid black 1px;
 	float: left;
 	position: relative;
+	border: black solid 1px;
  }
+
+ .midroom {
+ 	height: 40px;
+ 	width: 240px;
+ 	background-color: gray;
+ 	float: left;
+ }
+
+
 
  .hoverd {
  	background: black;
@@ -42,21 +58,15 @@
  	float: left;
  	height: 30px;
  	width: 30px;
- 	border-radius: 5px
+ 	border-radius: 5px;
  	font-size: 20px;
  	text-align: center;
  	background: pink;
  	border: solid black 1px;
+ 	margin: 2px;
+ 	margin-left: 60px;
  	 }
 
- #dice {
- 	clear: both;
- 	width: 65px;
- 	margin-right: auto;
- 	margin-left: auto;
- 	border: solid black 2px;
- 	margin: 5px;
- }
 
  .red {
  	background: red;

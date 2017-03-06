@@ -70,6 +70,20 @@ function initBoard() {
 	//break div to go bottom side of board
 	$('<div class="break"></div>').appendTo('#gameBoard');
 
+	//add middle point of left bar
+	$('<div class="midbar"></div>').appendTo('#gameBoard');
+	//add left middle area
+	$('<div id="leftArea" class="midroom"></div>').appendTo('#gameBoard');
+	//add middle point of middle bar
+	$('<div class="midbar"></div>').appendTo('#gameBoard');
+	//add right middle area
+	$('<div id="rightArea" class="midroom"></div>').appendTo('#gameBoard');
+	//add middle point of right bar
+	$('<div class="midbar"></div>').appendTo('#gameBoard');
+
+	//break div to go bottom side of board
+	$('<div class="break"></div>').appendTo('#gameBoard');
+
 	//bottom left board add to board
 	$('<div class="bar"></div>').appendTo('#gameBoard');
 
@@ -115,6 +129,6 @@ function throwDice() {
 	die2 = Math.floor(Math.random() * 6 + 1);
 	var diceHtml = '<div class="die">' + die1 + '</div>';
 	diceHtml += '<div class="die">' + die2 + '</div>';
-	$('#dice').html(diceHtml);
+	$('#rightArea').html(diceHtml);
 
 }
