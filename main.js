@@ -29,21 +29,37 @@ function gameFlow() {
 function droped(event, ui) {
 	var startRoom = ui.draggable.parent().parent().data('num');
 	var dropRoom = $(this).data('num')
+	
 	if (moveIsAlowed(startRoom, dropRoom)) {
+		var hitHappened = false;
 		var newElement = '<div class="' + ui.draggable.attr('class') + '"></div>';
 		//alert($(this).data('num'));
 		//alert(ui.draggable.parent().parent().data('num'));
 		ui.draggable.remove();
 
-		$(this).children().append(newElement);
 
-		$('.checker').draggable({
+		if(rooms[dropRoom] * player == -1) {
+			//hit happend
+			hitHappened = true;
+			if (player == 1 ){
+				$(this).children().children().appendTo('#topBar .bottom');
+			}else {
+				$(this).children().children().appendTo('#bottomBar .top');
+			}
+			
+			
+		} else {
+			
+		}
+
+		$(this).children().append(newElement);
+		$(this).children().children().draggable({
 			revert: true ,
 			stack: '.checker',
 			helper: 'original'
 		}); 
 
-		regMove(startRoom, dropRoom);
+		regMove(startRoom, dropRoom, hitHappened);
 	}
 
 }
@@ -93,10 +109,22 @@ function moveIsAlowed(started, droped) {
 	return false;
 }
 
-function regMove(started, droped) {
+function regMove(started, droped, hitted) {
 	var maxMoves = (doubleDice ? 4 : 2);
 	rooms[started] = rooms[started] - player;
-	rooms[droped] = rooms[droped] + player;
+	if(hitted) {
+		rooms[droped] = player;
+
+		if (player == 1) {
+			rooms[25] = rooms[25] - player;
+		}else {
+			rooms[0] = rooms[0] - player;
+		}
+		
+		
+	} else {
+		rooms[droped] = rooms[droped] + player;
+	}
 	moveCounter++;
 
 	if (player == -1) {
@@ -130,7 +158,9 @@ function initBoard() {
 	}
 
 	//top middle bar add to board
-	$('<div class="bar"></div>').appendTo('#gameBoard');
+	$('<div id="topBar" class="bar"><div class="bottom"></div></div>')
+	.data('num', 25)
+	.appendTo('#gameBoard');
 
 	//rooms 19-24 add to board
 	for(i=19; i<25; i++) {
@@ -172,7 +202,9 @@ function initBoard() {
 	}
 
 	//middle bar add to board
-	$('<div class="bar"></div>').appendTo('#gameBoard');
+	$('<div id="bottomBar" class="bar"><div class="top"></div></div>')
+	.data('num', 0)
+	.appendTo('#gameBoard');
 
 	//room 1-6 add to board
 	for(i=6; i>0; i--) {
