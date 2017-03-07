@@ -2,6 +2,7 @@
 var rooms = [0, 2, 0, 0, 0, 0, -5, 0, -3, 0, 0, 0, 5, -5, 0, 0, 0, 3, 0, 5, 0, 0, 0, 0, -2, 0];
 var die1, die2;
 var player = -1;
+var moveCounter = 0;
 $( init );
 
 function init() {
@@ -40,11 +41,13 @@ function droped(event, ui) {
 
 function moveIsAlowed(started, droped) {
 	// check if right players checker moved
-	if (rooms[started] * player > 1) {
+	if (rooms[started] * player > 0) {
 		// check if die one number moved
 		if(started + die1 * player == droped) {
 			// check if drop room blocked width opponent
 			if(rooms[droped] * player > -2) {
+				die1 = 100;
+				$('#die1').css('opacity',0.5);
 				return true;
 			}
 			
@@ -53,6 +56,8 @@ function moveIsAlowed(started, droped) {
 		if(started + die2 * player == droped) {
 			// check if drop room blocked width opponent
 			if(rooms[droped] * player > -2) {
+				die2 = 100;
+				$('#die2').css('opacity',0.5);
 				return true;
 			}
 		}
@@ -63,6 +68,11 @@ function moveIsAlowed(started, droped) {
 function regMove(started, droped) {
 	rooms[started] = rooms[started] - player;
 	rooms[droped] = rooms[droped] + player;
+	moveCounter++;
+	$('#undo').show();
+	if(moveCounter == 2) {
+		$('#confirm').show();
+	}
 	console.log(rooms);
 }
 
@@ -168,8 +178,11 @@ function loadPos(posArr) {
 function throwDice() {
 	die1 = Math.floor(Math.random() * 6 + 1);
 	die2 = Math.floor(Math.random() * 6 + 1);
-	var diceHtml = '<div class="die">' + die1 + '</div>';
-	diceHtml += '<div class="die">' + die2 + '</div>';
+
+	var diceHtml = '<div id="die1" class="die">' + die1 + '</div>';
+	diceHtml += '<div id= "die2" class="die">' + die2 + '</div>';
+	diceHtml += '<div id="confirm"> Confirm </div>';
+	diceHtml += '<div id="undo"> Undo </div>';
 
 	if (player == -1) {
 		$('#rightArea').html(diceHtml);

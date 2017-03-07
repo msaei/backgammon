@@ -64,8 +64,34 @@
  	background: pink;
  	border: solid black 1px;
  	margin: 2px;
- 	margin-left: 60px;
+ 	margin-left: 10px;
  	 }
+
+ #confirm {
+ 	height: 30px;
+ 	width:60px;
+ 	border-radius: 5px;
+ 	background: green;
+ 	color: white;
+ 	float: right;
+ 	text-align: center;
+ 	display: none;
+ 	margin: 2px;
+ 	padding: 2px;
+ }
+
+ #undo {
+ 	height: 30px;
+ 	width:60px;
+ 	border-radius: 5px;
+ 	background: red;
+ 	color: white;
+ 	float: right;
+ 	text-align: center;
+ 	display: none;
+ 	margin: 2px;
+ 	padding: 2px;
+ }
 
 
  .red {
