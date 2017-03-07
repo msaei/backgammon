@@ -2,6 +2,7 @@
 let intPos = [0, 2, 0, 0, 0, 0, -5, 0, -3, 0, 0, 0, 5, -5, 0, 0, 0, 3, 0, 5, 0, 0, 0, 0, -2, 0];
 var rooms = [];
 var die1, die2;
+var doubleDice = false;
 var player = 1;
 var moveCounter = 0;
 $(document).ready(function(){
@@ -54,8 +55,17 @@ function moveIsAlowed(started, droped) {
 		if(started + die1 * player == droped) {
 			// check if drop room blocked width opponent
 			if(rooms[droped] * player > -2) {
-				die1 = 100;
-				$('.die1').css('opacity',0.5);
+				if(doubleDice) {
+					if($('.die1').css('opacity') == 1){
+						$('.die1').css('opacity',0.9);
+					} else {
+						die1 = 100;
+						$('.die1').css('opacity',0.5)
+					}
+				} else {
+					die1 = 100;
+					$('.die1').css('opacity',0.5);
+				}
 				return true;
 			}
 			
@@ -64,8 +74,18 @@ function moveIsAlowed(started, droped) {
 		if(started + die2 * player == droped) {
 			// check if drop room blocked width opponent
 			if(rooms[droped] * player > -2) {
-				die2 = 100;
-				$('.die2').css('opacity',0.5);
+				if(doubleDice) {
+					if($('.die2').css('opacity') == 1){
+						$('.die2').css('opacity',0.9);
+					} else {
+						die2 = 100;
+						$('.die2').css('opacity',0.5)
+					}
+				} else {
+					die2 = 100;
+					$('.die2').css('opacity',0.5);
+				}
+				
 				return true;
 			}
 		}
@@ -74,19 +94,20 @@ function moveIsAlowed(started, droped) {
 }
 
 function regMove(started, droped) {
+	var maxMoves = (doubleDice ? 4 : 2);
 	rooms[started] = rooms[started] - player;
 	rooms[droped] = rooms[droped] + player;
 	moveCounter++;
 
 	if (player == -1) {
 		$('#rightArea .undo').show();
-		if(moveCounter == 2) {
+		if(moveCounter == maxMoves) {
 			$('#rightArea .confirm').show();
 		}
 		
 	} else {
 		$('#leftArea .undo').show();
-		if(moveCounter == 2) {
+		if(moveCounter == maxMoves) {
 			$('#leftArea .confirm').show();
 		}
 	}
@@ -201,6 +222,7 @@ function throwDice() {
 	moveCounter = 0;
 	die1 = Math.floor(Math.random() * 6 + 1);
 	die2 = Math.floor(Math.random() * 6 + 1);
+	if (die1 == die2) { doubleDice = true;} else { doubleDice = false;}
 	$('.die1').html(die1);
 	$('.die2').html(die2);
 
