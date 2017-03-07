@@ -1,9 +1,17 @@
 // javascript code comes here
-var rooms = [0, 2, 0, 0, 0, 0, -5, 0, -3, 0, 0, 0, 5, -5, 0, 0, 0, 3, 0, 5, 0, 0, 0, 0, -2, 0];
+let intPos = [0, 2, 0, 0, 0, 0, -5, 0, -3, 0, 0, 0, 5, -5, 0, 0, 0, 3, 0, 5, 0, 0, 0, 0, -2, 0];
+var rooms = [];
 var die1, die2;
-var player = -1;
+var player = 1;
 var moveCounter = 0;
-$( init );
+$(document).ready(function(){
+	initBoard();
+	loadPos(intPos);
+	throwDice();
+	$('.confirm').click(function(){
+		throwDice();
+	});
+ });
 
 function init() {
 
@@ -69,10 +77,21 @@ function regMove(started, droped) {
 	rooms[started] = rooms[started] - player;
 	rooms[droped] = rooms[droped] + player;
 	moveCounter++;
-	$('#undo').show();
-	if(moveCounter == 2) {
-		$('#confirm').show();
+
+	if (player == -1) {
+		$('#rightArea .undo').show();
+		if(moveCounter == 2) {
+			$('#rightArea .confirm').show();
+		}
+		
+	} else {
+		$('#leftArea .undo').show();
+		if(moveCounter == 2) {
+			$('#leftArea .confirm').show();
+		}
 	}
+	
+
 	console.log(rooms);
 }
 
@@ -109,11 +128,11 @@ function initBoard() {
 	//add middle point of left bar
 	$('<div class="midbar"></div>').appendTo('#gameBoard');
 	//add left middle area
-	$('<div id="leftArea" class="midroom"></div>').appendTo('#gameBoard');
+	$('<div id="leftArea" class="midroom"><div class="die1"></div><div class="die2"></div><div class="confirm"> Confirm </div><div class="undo"> Undo </div></div>').appendTo('#gameBoard');
 	//add middle point of middle bar
 	$('<div class="midbar"></div>').appendTo('#gameBoard');
 	//add right middle area
-	$('<div id="rightArea" class="midroom"></div>').appendTo('#gameBoard');
+	$('<div id="rightArea" class="midroom"><div class="die1"></div><div class="die2"></div><div class="confirm"> Confirm </div><div class="undo"> Undo </div></div>').appendTo('#gameBoard');
 	//add middle point of right bar
 	$('<div class="midbar"></div>').appendTo('#gameBoard');
 
@@ -155,6 +174,7 @@ function initBoard() {
 }
 
 function loadPos(posArr) {
+	rooms = intPos;
 	for(i=1; i<25; i++) {
 		checkerCount = posArr[i];
 		roomId = '#room' + i ;
@@ -176,18 +196,29 @@ function loadPos(posArr) {
 }
 
 function throwDice() {
+	
+	player = player * -1;
+	moveCounter = 0;
 	die1 = Math.floor(Math.random() * 6 + 1);
 	die2 = Math.floor(Math.random() * 6 + 1);
+	$('.die1').html(die1);
+	$('.die2').html(die2);
 
-	var diceHtml = '<div id="die1" class="die">' + die1 + '</div>';
-	diceHtml += '<div id= "die2" class="die">' + die2 + '</div>';
-	diceHtml += '<div id="confirm"> Confirm </div>';
-	diceHtml += '<div id="undo"> Undo </div>';
+	$('.confirm').hide();
+	$('.undo').hide();
+
 
 	if (player == -1) {
-		$('#rightArea').html(diceHtml);
+		$('#rightArea .die1').show();
+		$('#rightArea .die2').show();
+		$('#leftArea .die1').hide();
+		$('#leftArea .die2').hide();
+		
 	} else {
-		$('#leftArea').html(diceHtml);
+		$('#leftArea .die1').show();
+		$('#leftArea .die2').show();
+		$('#rightArea .die1').hide();
+		$('#rightArea .die2').hide();
 	}
 	
 

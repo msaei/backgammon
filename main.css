@@ -54,7 +54,7 @@
 
  }
 
- .die {
+ .die1 ,.die2 {
  	float: left;
  	height: 30px;
  	width: 30px;
@@ -67,7 +67,7 @@
  	margin-left: 10px;
  	 }
 
- #confirm {
+ .confirm {
  	height: 30px;
  	width:60px;
  	border-radius: 5px;
@@ -80,7 +80,7 @@
  	padding: 2px;
  }
 
- #undo {
+ .undo {
  	height: 30px;
  	width:60px;
  	border-radius: 5px;
