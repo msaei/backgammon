@@ -12,6 +12,13 @@ $(document).ready(function(){
 	$('.confirm').click(function(){
 		throwDice();
 	});
+
+	$('#passDice').click(function(){
+		var wannaPass = confirm('are you want to pass dice?');
+		if (wannaPass) {
+			throwDice();
+		}
+	});
  });
 
 function init() {
@@ -181,7 +188,7 @@ function initBoard() {
 	//add left middle area
 	$('<div id="leftArea" class="midroom"><div class="die1"></div><div class="die2"></div><div class="confirm"> Confirm </div><div class="undo"> Undo </div></div>').appendTo('#gameBoard');
 	//add middle point of middle bar
-	$('<div class="midbar"></div>').appendTo('#gameBoard');
+	$('<div id="passDice" class="midbar"></div>').appendTo('#gameBoard');
 	//add right middle area
 	$('<div id="rightArea" class="midroom"><div class="die1"></div><div class="die2"></div><div class="confirm"> Confirm </div><div class="undo"> Undo </div></div>').appendTo('#gameBoard');
 	//add middle point of right bar
