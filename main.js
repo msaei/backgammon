@@ -55,7 +55,7 @@ function moveIsAlowed(started, droped) {
 			// check if drop room blocked width opponent
 			if(rooms[droped] * player > -2) {
 				die1 = 100;
-				$('#die1').css('opacity',0.5);
+				$('.die1').css('opacity',0.5);
 				return true;
 			}
 			
@@ -65,7 +65,7 @@ function moveIsAlowed(started, droped) {
 			// check if drop room blocked width opponent
 			if(rooms[droped] * player > -2) {
 				die2 = 100;
-				$('#die2').css('opacity',0.5);
+				$('.die2').css('opacity',0.5);
 				return true;
 			}
 		}
@@ -206,6 +206,7 @@ function throwDice() {
 
 	$('.confirm').hide();
 	$('.undo').hide();
+	$('.die1 , .die2').css('opacity', '1');
 
 
 	if (player == -1) {
