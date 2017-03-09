@@ -3,6 +3,7 @@ let intPos = [0, 2, 0, 0, 0, 0, -5, 0, -3, 0, 0, 0, 5, -5, 0, 0, 0, 3, 0, 5, 0, 
 let testPos = [0, 0, -3, -3, -3, -3, -3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 0, 0, 0 , 0];
 var rooms = [];
 var die1, die2;
+var doubleDice = false;
 var player = 1;
 var moveCounter = 0;
 var maxMoves = 0;
@@ -78,7 +79,7 @@ function moveIsAlowed(started, droped) {
 	// check if right players checker moved
 	if (rooms[started] * player > 0) {
 		// check if die one number moved
-		if(started + die1 * player == droped) {
+		if(started + die1 * player == droped ) {
 			// check if drop room blocked width opponent
 			if(rooms[droped] * player > -2) {
 				if(doubleDice) {
@@ -213,7 +214,7 @@ function dropHomeIsAllowed (fromRoom, homeId) {
 			checkerInHome += rooms[26];
 			if(checkerInHome== 15){
 
-				if(fromRoom + die1 * player == 25) {
+				if((fromRoom + die1 * player == 25) || (isLastChecker(fromRoom) && (fromRoom + die1 > 25))) {
 					if(doubleDice) {
 						if($('.die1').css('opacity') == 1){
 							$('.die1').css('opacity',0.9);
@@ -229,7 +230,7 @@ function dropHomeIsAllowed (fromRoom, homeId) {
 			
 				}
 
-				if(fromRoom + die2 * player == 25) {
+				if((fromRoom + die2 * player == 25) || (isLastChecker(fromRoom) && (fromRoom + die2 > 25))){
 					if(doubleDice) {
 						if($('.die2').css('opacity') == 1){
 							$('.die2').css('opacity',0.9);
@@ -256,7 +257,7 @@ function dropHomeIsAllowed (fromRoom, homeId) {
 			}
 			checkerInHome += rooms[27];
 			if(checkerInHome== -15){
-				if(fromRoom + die1 * player == 0) {
+				if((fromRoom + die1 * player == 0) || (isLastChecker(fromRoom) && (fromRoom - die1 < 0))){
 					if(doubleDice) {
 						if($('.die1').css('opacity') == 1){
 							$('.die1').css('opacity',0.9);
@@ -272,7 +273,7 @@ function dropHomeIsAllowed (fromRoom, homeId) {
 			
 				}
 
-				if(fromRoom + die2 * player == 0) {
+				if ((fromRoom + die2 * player == 0) || (isLastChecker(fromRoom) && (fromRoom - die2 < 0))) {
 					if(doubleDice) {
 						if($('.die2').css('opacity') == 1){
 							$('.die2').css('opacity',0.9);
@@ -292,6 +293,19 @@ function dropHomeIsAllowed (fromRoom, homeId) {
 
 	}
 	return false;
+}
+
+function isLastChecker(roomId) {
+	if (player == 1) {
+		for(i=19; i<roomId; i++) {
+			if (rooms[i] > 0) { return false;}
+		}
+	}else{
+		for(i=6; i>roomId; i--) {
+			if (rooms[i] < 0) { return false;}
+		}
+	}
+	return true;
 }
 
 
@@ -412,7 +426,13 @@ function throwDice() {
 	die1 = Math.floor(Math.random() * 6 + 1);
 	die2 = Math.floor(Math.random() * 6 + 1);
 	
-	if (die1 == die2) { maxMoves = 4;} else { maxMoves = 2;}
+	if (die1 == die2) { 
+		maxMoves = 4;
+		doubleDice = true;
+	} else { 
+		maxMoves = 2;
+		doubleDice = false;
+	}
 
 	$('.die1').html(die1);
 	$('.die2').html(die2);
