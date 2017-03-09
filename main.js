@@ -1,13 +1,16 @@
 // javascript code comes here
-let intPos = [0, 2, 0, 0, 0, 0, -5, 0, -3, 0, 0, 0, 5, -5, 0, 0, 0, 3, 0, 5, 0, 0, 0, 0, -2, 0];
+let intPos = [0, 2, 0, 0, 0, 0, -5, 0, -3, 0, 0, 0, 5, -5, 0, 0, 0, 3, 0, 5, 0, 0, 0, 0, -2, 0, 0 , 0];
+let testPos = [0, 0, -3, -3, -3, -3, -3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 0, 0, 0 , 0];
 var rooms = [];
 var die1, die2;
-var doubleDice = false;
 var player = 1;
 var moveCounter = 0;
+var maxMoves = 0;
+var allBlueHome = false;
+var allRedHome = false;
 $(document).ready(function(){
 	initBoard();
-	loadPos(intPos);
+	loadPos(testPos);
 	throwDice();
 	$('.confirm').click(function(){
 		throwDice();
@@ -117,7 +120,7 @@ function moveIsAlowed(started, droped) {
 }
 
 function regMove(started, droped, hitted) {
-	var maxMoves = (doubleDice ? 4 : 2);
+	
 	rooms[started] = rooms[started] - player;
 	if(hitted) {
 		rooms[droped] = player;
@@ -151,6 +154,147 @@ function regMove(started, droped, hitted) {
 	console.log(rooms);
 }
 
+function dropedToHome(event, ui) {
+	var startRoom = ui.draggable.parent().parent().data('num');
+	var dropRoom = $(this).attr('id');
+	//alert(startRoom + ' to ' + dropRoom);
+	if (dropHomeIsAllowed(startRoom, dropRoom)){
+		var newElement = '<div class="homedChecker"></div>';
+		if (ui.draggable.hasClass("red")){
+			newElement = '<div class="homedChecker red"></div>';
+		}
+		ui.draggable.remove();
+		$(this).children().append(newElement);
+		regDropHome(startRoom);
+
+	}
+
+}
+
+function regDropHome(startRoom) {
+	rooms[startRoom] = rooms[startRoom] - player;
+	if (player==1) {
+		rooms[26]+= 1;
+	} else {
+		rooms[27]-= 1;
+	}
+
+	moveCounter++;
+
+	if (player == -1) {
+		$('#rightArea .undo').show();
+		if(moveCounter == maxMoves) {
+			$('#rightArea .confirm').show();
+		}
+		
+	} else {
+		$('#leftArea .undo').show();
+		if(moveCounter == maxMoves) {
+			$('#leftArea .confirm').show();
+		}
+	}
+	
+
+	console.log(rooms);
+
+}
+
+function dropHomeIsAllowed (fromRoom, homeId) {
+	var checkerInHome = 0;
+
+	// check if current players moving own checker
+	if (rooms[fromRoom] * player > 0) {
+		if(player == 1 && homeId == "redHome"){
+			//check if all checker in home ready to go
+			checkerInHome = 0;
+			for(i=19; i<25; i++){
+				checkerInHome += rooms[i];
+			}
+			checkerInHome += rooms[26];
+			if(checkerInHome== 15){
+
+				if(fromRoom + die1 * player == 25) {
+					if(doubleDice) {
+						if($('.die1').css('opacity') == 1){
+							$('.die1').css('opacity',0.9);
+						} else {
+							die1 = 0.1;
+							$('.die1').css('opacity',0.5)
+						}
+					} else {
+						die1 = 0.1;
+						$('.die1').css('opacity',0.5);
+					}
+				return true;
+			
+				}
+
+				if(fromRoom + die2 * player == 25) {
+					if(doubleDice) {
+						if($('.die2').css('opacity') == 1){
+							$('.die2').css('opacity',0.9);
+						} else {
+							die2 = 0.1;
+							$('.die2').css('opacity',0.5)
+						}
+					} else {
+						die2 = 0.1;
+						$('.die2').css('opacity',0.5);
+					}
+				return true;
+			
+				}
+			} 
+		}
+
+		if(player == -1 && homeId == "blueHome" ){
+			//check if all checker in home ready to go
+
+			checkerInHome = 0;
+			for(i=1; i<7; i++){
+				checkerInHome += rooms[i];
+			}
+			checkerInHome += rooms[27];
+			if(checkerInHome== -15){
+				if(fromRoom + die1 * player == 0) {
+					if(doubleDice) {
+						if($('.die1').css('opacity') == 1){
+							$('.die1').css('opacity',0.9);
+						} else {
+							die1 = 0.1;
+							$('.die1').css('opacity',0.5)
+						}
+					} else {
+						die1 = 0.1;
+						$('.die1').css('opacity',0.5);
+					}
+				return true;
+			
+				}
+
+				if(fromRoom + die2 * player == 0) {
+					if(doubleDice) {
+						if($('.die2').css('opacity') == 1){
+							$('.die2').css('opacity',0.9);
+						} else {
+							die2 = 0.1;
+							$('.die2').css('opacity',0.5)
+						}
+					} else {
+						die2 = 0.1;
+						$('.die2').css('opacity',0.5);
+					}
+				return true;
+			
+				}
+			} 
+		}
+
+	}
+	return false;
+}
+
+
 function initBoard() {
 	
 	//top left bar add to board
@@ -178,7 +322,7 @@ function initBoard() {
 	}
 
 	//top right bar add to board
-	$('<div class="bar"></div>').appendTo('#gameBoard');
+	$('<div id="redHome" class="bar"><div class="top"></div></div>').appendTo('#gameBoard');
 
 	//break div to go bottom side of board
 	$('<div class="break"></div>').appendTo('#gameBoard');
@@ -222,7 +366,7 @@ function initBoard() {
 	}
 
 	//bottom right bar add to board
-	$('<div class="bar"></div>').appendTo('#gameBoard');
+	$('<div id="blueHome" class="bar"><div class="bottom"></div></div>').appendTo('#gameBoard');
 
 
 	// make rooms dropable
@@ -231,10 +375,16 @@ function initBoard() {
 		hoverClass: 'hoverd',
 		drop: droped
 	});
+	//make home bar dropable
+	$("#blueHome, #redHome").droppable({ 
+		accept: '.checker',
+		hoverClass: 'hoverd',
+		drop: dropedToHome
+	});
 }
 
 function loadPos(posArr) {
-	rooms = intPos;
+	rooms = posArr;
 	for(i=1; i<25; i++) {
 		checkerCount = posArr[i];
 		roomId = '#room' + i ;
@@ -261,7 +411,9 @@ function throwDice() {
 	moveCounter = 0;
 	die1 = Math.floor(Math.random() * 6 + 1);
 	die2 = Math.floor(Math.random() * 6 + 1);
-	if (die1 == die2) { doubleDice = true;} else { doubleDice = false;}
+	
+	if (die1 == die2) { maxMoves = 4;} else { maxMoves = 2;}
+
 	$('.die1').html(die1);
 	$('.die2').html(die2);
 

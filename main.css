@@ -55,6 +55,13 @@
 
  }
 
+ .homedChecker {
+ 	height:10px;
+ 	width:38px;
+ 	background:blue;
+ 	border: solid black 1px;
+ }
+
  .die1 ,.die2 {
  	float: left;
  	height: 30px;
