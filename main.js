@@ -176,8 +176,10 @@ function regDropHome(startRoom) {
 	rooms[startRoom] = rooms[startRoom] - player;
 	if (player==1) {
 		rooms[26]+= 1;
+		if(rooms[26] == 15) { alert("red wins!");}
 	} else {
 		rooms[27]-= 1;
+		if(rooms[27] == -15) { alert("blue wins!");}
 	}
 
 	moveCounter++;
