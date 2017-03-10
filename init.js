@@ -8,6 +8,7 @@ var moveCounter = 0;
 var maxMoves = 0;
 var allBlueHome = false;
 var allRedHome = false;
+var moveMemory = [];
 
 
 

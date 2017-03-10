@@ -8,6 +8,10 @@ $(document).ready(function(){
 		throwDice();
 	});
 
+	$('.undo').click(function(){
+		undoMove();
+	});
+
 	$('#passDice').click(function(){
 		var wannaPass = confirm('are you want to pass dice?');
 		if (wannaPass) {
@@ -177,7 +181,7 @@ function regDropHome(startRoom) {
 		}
 	}
 	
-
+	moveMemory.push
 	console.log(rooms);
 
 }
@@ -290,7 +294,9 @@ function isLastChecker(roomId) {
 	return true;
 }
 
+function undoMove() {
 
+}
 
 
 
