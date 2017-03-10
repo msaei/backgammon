@@ -9,7 +9,7 @@ $(document).ready(function(){
 	});
 
 	$('.undo').click(function(){
-		undoMove();
+		retrivePosFromStack();
 	});
 
 	$('#passDice').click(function(){
@@ -24,6 +24,7 @@ $(document).ready(function(){
 function droped(event, ui) {
 	var startRoom = ui.draggable.parent().parent().data('num');
 	var dropRoom = $(this).data('num')
+	takePicOfElements();
 	
 	if (moveIsAlowed(startRoom, dropRoom)) {
 		var hitHappened = false;
@@ -105,7 +106,9 @@ function moveIsAlowed(started, droped) {
 }
 
 function regMove(started, droped, hitted) {
-	
+
+	savePosInStack(rooms);
+    alert(positionStack[0].posArr);
 	rooms[started] = rooms[started] - player;
 	if(hitted) {
 		rooms[droped] = player;
@@ -142,7 +145,8 @@ function regMove(started, droped, hitted) {
 function dropedToHome(event, ui) {
 	var startRoom = ui.draggable.parent().parent().data('num');
 	var dropRoom = $(this).attr('id');
-	//alert(startRoom + ' to ' + dropRoom);
+	takePicOfElements();
+
 	if (dropHomeIsAllowed(startRoom, dropRoom)){
 		var newElement = '<div class="homedChecker"></div>';
 		if (ui.draggable.hasClass("red")){
@@ -157,6 +161,9 @@ function dropedToHome(event, ui) {
 }
 
 function regDropHome(startRoom) {
+
+	savePosInStack(rooms);
+	alert(positionStack[0].posArr);
 	rooms[startRoom] = rooms[startRoom] - player;
 	if (player==1) {
 		rooms[26]+= 1;
@@ -181,10 +188,51 @@ function regDropHome(startRoom) {
 		}
 	}
 	
-	moveMemory.push
+	
 	console.log(rooms);
 
 }
+
+function takePicOfElements() {
+	picOfElements.die1Opacity = $('.die1').css('opacity');
+	picOfElements.die2Opacity = $('.die2').css('opacity');
+	picOfElements.undoLeftDisplay = $('#leftArea .undo').css('display');
+	picOfElements.undoRighttDisplay = $('#rightArea .undo').css('display');
+	picOfElements.confirmLeftDisplay = $('#leftArea .confirm').css('display');
+	picOfElements.confirmRighttDisplay = $('#rightArea .confirm').css('display');
+	//console.log(picOfElements);
+
+}
+
+function savePosInStack(poss) {
+	//create json object of position from elements
+
+	console.log(poss);
+	var oldPoss = poss;
+	var posObj = {};
+	posObj.posArr = oldPoss;
+	posObj.elements = picOfElements;
+	positionStack.push(posObj);
+	console.log(positionStack);
+
+	//push object to stack array
+}
+
+function retrivePosFromStack() {
+	//pop position object from stack
+	var posObj = positionStack.pop();
+	//change elements according to position obj
+	$('.die1').css('opacity', posObj.elements.die1Opacity);
+	$('.die2').css('opacity', posObj.elements.die2Opacity);
+	$('#leftArea .undo').css('display', posObj.elements.undoLeftDisplay);
+	$('#rightArea .undo').css('display', posObj.elements.undoRighttDisplay);
+	$('#leftArea .confirm').css('display', posObj.elements.confirmLeftDisplay);
+	$('#rightArea .confirm').css('display', posObj.elements.confirmRighttDisplay);
+	loadPos(posObj.posArr);
+	moveCounter--;
+
+}
+
 
 function dropHomeIsAllowed (fromRoom, homeId) {
 	var checkerInHome = 0;

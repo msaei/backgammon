@@ -1,6 +1,6 @@
 [ ] Compact stacking
-[ ] Undo button
-[...] Eating checkers
+[...] Undo button
+[^] Eating checkers
 [ ] Start dice
 [ ] Win gammon and bg
 [ ] double cube

@@ -8,7 +8,8 @@ var moveCounter = 0;
 var maxMoves = 0;
 var allBlueHome = false;
 var allRedHome = false;
-var moveMemory = [];
+var positionStack = [];
+var picOfElements = {};
 
 
 
@@ -109,7 +110,7 @@ function loadPos(posArr) {
 		roomId = '#room' + i ;
 		checker = (checkerCount > 0 ? '<div class="checker red"></div>' : '<div class="checker blue"></div>');
 		count = (checkerCount > 0 ? checkerCount : -checkerCount);
-		
+		$(roomId).children().html('');
 		for (j=0; j < count; j++) {
 				$(roomId).children().append(checker);
 		}	
