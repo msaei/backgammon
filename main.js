@@ -271,7 +271,8 @@ function dropHomeIsAllowed (fromRoom, homeId) {
 			//check if all checker in home ready to go
 			checkerInHome = 0;
 			for(i=19; i<25; i++){
-				checkerInHome += rooms[i];
+				if(room[i]>0){
+				checkerInHome += rooms[i];}
 			}
 			checkerInHome += rooms[26];
 			if(checkerInHome== 15){
@@ -319,7 +320,8 @@ function dropHomeIsAllowed (fromRoom, homeId) {
 
 			checkerInHome = 0;
 			for(i=1; i<7; i++){
-				checkerInHome += rooms[i];
+				if(rooms[i]<0){
+				checkerInHome += rooms[i];}
 			}
 			checkerInHome += rooms[27];
 			if(checkerInHome== -15){
