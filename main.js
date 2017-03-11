@@ -2,7 +2,7 @@
 
 $(document).ready(function(){
 	initBoard();
-	loadPos(testPos);
+	loadPos(intPos);
 	throwDice();
 	$('.confirm').click(function(){
 		throwDice();
@@ -243,6 +243,14 @@ function retrivePosFromStack() {
 	$('#rightArea .confirm').css('display', posObj.confirmRighttDisplay);
 	rooms[posObj.movedFrom] += player;
 	rooms[posObj.movedTo] -= player;
+	if (posObj.heated) {
+		rooms[posObj.movedTo] = -player;
+		if (player == 1) {
+			rooms[25] = rooms[25] + player;
+		}else {
+			rooms[0] = rooms[0] + player;
+		}
+	}
 	loadPos(rooms);
 	if (posObj.die > 0 ) {
 		die1 = posObj.die;
