@@ -116,6 +116,39 @@ function loadPos(posArr) {
 		}	
 	}
 
+	checkerCount = posArr[25];
+	checker = (checkerCount > 0 ? '<div class="checker red"></div>' : '<div class="checker blue"></div>');
+	count = (checkerCount > 0 ? checkerCount : -checkerCount);
+	$('#topBar .bottom').html('');
+	for (k=0; k < count; k++) {
+		$('#topBar .bottom').append(checker);
+	}	
+
+	checkerCount = posArr[0];
+	checker = (checkerCount > 0 ? '<div class="checker red"></div>' : '<div class="checker blue"></div>');
+	count = (checkerCount > 0 ? checkerCount : -checkerCount);
+	$('#bottomBar .top').html('');
+	for (k=0; k < count; k++) {
+		$('#bottomBar .top').append(checker);
+	}	
+
+	checkerCount = posArr[27];
+	checker = (checkerCount > 0 ? '<div class="homedChecker red"></div>' : '<div class="homedChecker"></div>');
+	count = (checkerCount > 0 ? checkerCount : -checkerCount);
+	$('#blueHome .bottom').html('');
+	for (k=0; k < count; k++) {
+		$('#blueHome .bottom').append(checker);
+	}
+
+	checkerCount = posArr[26];
+	checker = (checkerCount > 0 ? '<div class="homedChecker red"></div>' : '<div class="homedChecker"></div>');
+	count = (checkerCount > 0 ? checkerCount : -checkerCount);
+	$('#redHome .top').html('');
+	for (k=0; k < count; k++) {
+		$('#redHome .top').append(checker);
+	}	
+	
+
 	//make checkers draggable
 	$('.checker').draggable({
 		revert: true ,

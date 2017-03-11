@@ -71,11 +71,13 @@ function moveIsAlowed(started, droped) {
 					if($('.die1').css('opacity') == 1){
 						$('.die1').css('opacity',0.9);
 					} else {
-						die1 = 100;
+						picOfElements.die = die1;
+						die1 = 0.1;
 						$('.die1').css('opacity',0.5)
 					}
 				} else {
-					die1 = 100;
+					picOfElements.die = die1;
+					die1 = 0.1;
 					$('.die1').css('opacity',0.5);
 				}
 				return true;
@@ -90,11 +92,13 @@ function moveIsAlowed(started, droped) {
 					if($('.die2').css('opacity') == 1){
 						$('.die2').css('opacity',0.9);
 					} else {
-						die2 = 100;
+						picOfElements.die = -die2;
+						die2 = 0.1;
 						$('.die2').css('opacity',0.5)
 					}
 				} else {
-					die2 = 100;
+					picOfElements.die = -die2;
+					die2 = 0.1;
 					$('.die2').css('opacity',0.5);
 				}
 				
@@ -107,8 +111,8 @@ function moveIsAlowed(started, droped) {
 
 function regMove(started, droped, hitted) {
 
-	savePosInStack(rooms);
-    alert(positionStack[0].posArr);
+	savePosInStack(started, droped, hitted);
+    
 	rooms[started] = rooms[started] - player;
 	if(hitted) {
 		rooms[droped] = player;
@@ -162,8 +166,8 @@ function dropedToHome(event, ui) {
 
 function regDropHome(startRoom) {
 
-	savePosInStack(rooms);
-	alert(positionStack[0].posArr);
+	savePosInStack(startRoom, (player==1 ? 26 : 27), false);
+	//alert(positionStack[0].posArr);
 	rooms[startRoom] = rooms[startRoom] - player;
 	if (player==1) {
 		rooms[26]+= 1;
@@ -204,14 +208,22 @@ function takePicOfElements() {
 
 }
 
-function savePosInStack(poss) {
+function savePosInStack(moveFrom, moveTo, heat) {
 	//create json object of position from elements
-
-	console.log(poss);
-	var oldPoss = poss;
+	
 	var posObj = {};
-	posObj.posArr = oldPoss;
-	posObj.elements = picOfElements;
+	posObj.movedFrom = moveFrom;
+	posObj.movedTo = moveTo;
+	posObj.heated = heat;
+	posObj.die1Opacity = picOfElements.die1Opacity;
+	posObj.die2Opacity = picOfElements.die2Opacity;
+	posObj.undoLeftDisplay = picOfElements.undoLeftDisplay;
+	posObj.undoRighttDisplay = picOfElements.undoRighttDisplay;
+	posObj.confirmLeftDisplay = picOfElements.confirmLeftDisplay;
+	posObj.confirmRighttDisplay = picOfElements.confirmRighttDisplay;
+	posObj.die = picOfElements.die;
+
+	//posObj.num = moveCounter;
 	positionStack.push(posObj);
 	console.log(positionStack);
 
@@ -222,13 +234,21 @@ function retrivePosFromStack() {
 	//pop position object from stack
 	var posObj = positionStack.pop();
 	//change elements according to position obj
-	$('.die1').css('opacity', posObj.elements.die1Opacity);
-	$('.die2').css('opacity', posObj.elements.die2Opacity);
-	$('#leftArea .undo').css('display', posObj.elements.undoLeftDisplay);
-	$('#rightArea .undo').css('display', posObj.elements.undoRighttDisplay);
-	$('#leftArea .confirm').css('display', posObj.elements.confirmLeftDisplay);
-	$('#rightArea .confirm').css('display', posObj.elements.confirmRighttDisplay);
-	loadPos(posObj.posArr);
+	
+	$('.die1').css('opacity', posObj.die1Opacity);
+	$('.die2').css('opacity', posObj.die2Opacity);
+	$('#leftArea .undo').css('display', posObj.undoLeftDisplay);
+	$('#rightArea .undo').css('display', posObj.undoRighttDisplay);
+	$('#leftArea .confirm').css('display', posObj.confirmLeftDisplay);
+	$('#rightArea .confirm').css('display', posObj.confirmRighttDisplay);
+	rooms[posObj.movedFrom] += player;
+	rooms[posObj.movedTo] -= player;
+	loadPos(rooms);
+	if (posObj.die > 0 ) {
+		die1 = posObj.die;
+	} else {
+		die2 = - posObj.die;
+	}
 	moveCounter--;
 
 }
@@ -253,10 +273,12 @@ function dropHomeIsAllowed (fromRoom, homeId) {
 						if($('.die1').css('opacity') == 1){
 							$('.die1').css('opacity',0.9);
 						} else {
+							picOfElements.die = die1;
 							die1 = 0.1;
 							$('.die1').css('opacity',0.5)
 						}
 					} else {
+						picOfElements.die = die1;
 						die1 = 0.1;
 						$('.die1').css('opacity',0.5);
 					}
@@ -269,10 +291,12 @@ function dropHomeIsAllowed (fromRoom, homeId) {
 						if($('.die2').css('opacity') == 1){
 							$('.die2').css('opacity',0.9);
 						} else {
+							picOfElements.die = -die2;
 							die2 = 0.1;
 							$('.die2').css('opacity',0.5)
 						}
 					} else {
+						picOfElements.die = -die2;
 						die2 = 0.1;
 						$('.die2').css('opacity',0.5);
 					}
@@ -296,10 +320,12 @@ function dropHomeIsAllowed (fromRoom, homeId) {
 						if($('.die1').css('opacity') == 1){
 							$('.die1').css('opacity',0.9);
 						} else {
+							picOfElements.die = die1;
 							die1 = 0.1;
 							$('.die1').css('opacity',0.5)
 						}
 					} else {
+						picOfElements.die = die1;
 						die1 = 0.1;
 						$('.die1').css('opacity',0.5);
 					}
@@ -312,10 +338,12 @@ function dropHomeIsAllowed (fromRoom, homeId) {
 						if($('.die2').css('opacity') == 1){
 							$('.die2').css('opacity',0.9);
 						} else {
+							picOfElements.die = -die2;
 							die2 = 0.1;
 							$('.die2').css('opacity',0.5)
 						}
 					} else {
+						picOfElements.die = -die2;
 						die2 = 0.1;
 						$('.die2').css('opacity',0.5);
 					}
@@ -353,6 +381,7 @@ function throwDice() {
 	
 	player = player * -1;
 	moveCounter = 0;
+	positionStack = [];
 	die1 = Math.floor(Math.random() * 6 + 1);
 	die2 = Math.floor(Math.random() * 6 + 1);
 	
