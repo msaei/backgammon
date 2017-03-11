@@ -1,5 +1,5 @@
 let intPos = [0, 2, 0, 0, 0, 0, -5, 0, -3, 0, 0, 0, 5, -5, 0, 0, 0, 3, 0, 5, 0, 0, 0, 0, -2, 0, 0 , 0];
-let testPos = [0, 0, -3, -3, -3, -3, -3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 0, 0, 0 , 0];
+let testPos = [0, 0, -6, -6, -6, -6, -6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 0, 0, 0 , 0];
 var rooms = [];
 var die1, die2;
 var doubleDice = false;
@@ -101,19 +101,32 @@ function initBoard() {
 	});
 }
 
-
+function loadRoom(posArr, roomId){
+	var roomValue = posArr[roomId];
+	var roomName = '#room' + roomId ;
+	var checker = (roomValue > 0 ? '<div class="checker red"></div>' : '<div class="checker blue"></div>');
+	var checkerCount = (roomValue > 0 ? roomValue : -roomValue);
+		$(roomName).children().html('');
+		for (j=0; j < checkerCount; j++) {
+				$(roomName).children().append(checker);
+		}
+	if(checkerCount > 6){
+		compactCheckers(roomId);
+	}	
+}
 
 function loadPos(posArr) {
 	rooms = posArr;
 	for(i=1; i<25; i++) {
-		checkerCount = posArr[i];
+		/* checkerCount = posArr[i];
 		roomId = '#room' + i ;
 		checker = (checkerCount > 0 ? '<div class="checker red"></div>' : '<div class="checker blue"></div>');
 		count = (checkerCount > 0 ? checkerCount : -checkerCount);
 		$(roomId).children().html('');
 		for (j=0; j < count; j++) {
 				$(roomId).children().append(checker);
-		}	
+		} */
+		loadRoom(posArr, i);	
 	}
 
 	checkerCount = posArr[25];

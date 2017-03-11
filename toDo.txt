@@ -11,5 +11,11 @@
 [ ] move log
 [ ] animate move
 [ ] fancy graphic and sounds
+[ ]	game status bar
 [ ] (online games)
+[ ] (...)
+_________________________
+[ ] revise undo to not load all board
+[ ] (...)
+[ ] (...)
 [ ] (...)

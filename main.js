@@ -2,7 +2,7 @@
 
 $(document).ready(function(){
 	initBoard();
-	loadPos(intPos);
+	loadPos(testPos);
 	throwDice();
 	$('.confirm').click(function(){
 		throwDice();
@@ -109,16 +109,42 @@ function moveIsAlowed(started, droped) {
 	return false;
 }
 
+function compactCheckers(roomId){
+	var elementId = "#room" + roomId ;
+
+	var count = $(elementId).children().children().length;
+	for(i=0; i<count; i++){
+		var topVal;
+		if(roomId < 13){
+			topVal = -i * Math.floor(240/count) - 40;
+			$(elementId ).children().find('div:eq(' + i + ')')
+			.css('position', 'absolute')
+			.css('top', topVal +'px')
+			.css('zIndex', i);
+		} else {
+			topVal = i * Math.floor(240/count);
+			$(elementId ).children().find('div:eq(' + i + ')')
+			.css('position', 'absolute')
+			.css('top', topVal +'px')
+			.css('zIndex', i);
+		}
+	}
+	//$(elementId ).children().find('div:eq(' + (count -1) + ')').html(count);
+}
+
 function regMove(started, droped, hitted) {
 
 	savePosInStack(started, droped, hitted);
     
 	rooms[started] = rooms[started] - player;
+
+	
 	if(hitted) {
 		rooms[droped] = player;
 
 		if (player == 1) {
 			rooms[25] = rooms[25] - player;
+
 		}else {
 			rooms[0] = rooms[0] - player;
 		}
@@ -126,6 +152,8 @@ function regMove(started, droped, hitted) {
 		
 	} else {
 		rooms[droped] = rooms[droped] + player;
+		if(rooms[droped]>6 || rooms[droped]<-6) {
+		compactCheckers(droped);}
 	}
 	moveCounter++;
 
@@ -271,7 +299,7 @@ function dropHomeIsAllowed (fromRoom, homeId) {
 			//check if all checker in home ready to go
 			checkerInHome = 0;
 			for(i=19; i<25; i++){
-				if(room[i]>0){
+				if(rooms[i]>0){
 				checkerInHome += rooms[i];}
 			}
 			checkerInHome += rooms[26];
