@@ -10,6 +10,7 @@ var allBlueHome = false;
 var allRedHome = false;
 var positionStack = [];
 var picOfElements = {};
+var diePics = ["", 'url(images/die1.png)', 'url(images/die2.png)', 'url(images/die3.png)', 'url(images/die4.png)', 'url(images/die5.png)', 'url(images/die6.png)'];
 
 
 

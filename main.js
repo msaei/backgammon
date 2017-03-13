@@ -2,7 +2,7 @@
 
 $(document).ready(function(){
 	initBoard();
-	loadPos(testPos);
+	loadPos(intPos);
 	throwDice();
 	$('.confirm').click(function(){
 		throwDice();
@@ -431,8 +431,9 @@ function throwDice() {
 		doubleDice = false;
 	}
 
-	$('.die1').html(die1);
-	$('.die2').html(die2);
+	$('.die1').css('backgroundImage', diePics[die1]);
+	$('.die2').css('backgroundImage', diePics[die2]);
+	
 
 	$('.confirm').hide();
 	$('.undo').hide();

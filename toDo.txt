@@ -1,4 +1,6 @@
-[.... ] Compact stacking
+[] undo for double dice issue
+___________________________________
+[+] Compact stacking
 [+] Undo button
 [+] Eating checkers
 [ ] Start dice
