@@ -1,6 +1,15 @@
 // javascript code comes here
 
 $(document).ready(function(){
+	 audio = document.createElement("audio");
+        //audio.src="https://kahimyang.com/resources/sound/click.mp3";
+     audio.src="sounds/roll.wav";
+     audio.volume=0.40;
+     audio.autoPlay=false;
+     audio.preLoad=true;       
+ 
+        //$(".playSound").click(function() {
+            
 	initBoard();
 	loadPos(intPos);
 	throwDice();
@@ -133,7 +142,7 @@ function compactCheckers(roomId){
 }
 
 function regMove(started, droped, hitted) {
-
+	
 	savePosInStack(started, droped, hitted);
     
 	rooms[started] = rooms[started] - player;
@@ -436,7 +445,7 @@ function throwDice() {
 		maxMoves = 2;
 		doubleDice = false;
 	}
-
+	audio.play();
 	$('.die1').css('backgroundImage', diePics[die1]);
 	$('.die2').css('backgroundImage', diePics[die2]);
 	
