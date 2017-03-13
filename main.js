@@ -171,7 +171,7 @@ function regMove(started, droped, hitted) {
 	}
 	
 
-	console.log(rooms);
+	//console.log(rooms);
 }
 
 function dropedToHome(event, ui) {
@@ -232,6 +232,8 @@ function takePicOfElements() {
 	picOfElements.undoRighttDisplay = $('#rightArea .undo').css('display');
 	picOfElements.confirmLeftDisplay = $('#leftArea .confirm').css('display');
 	picOfElements.confirmRighttDisplay = $('#rightArea .confirm').css('display');
+	picOfElements.die1 = die1;
+	picOfElements.die2 = die2;
 	//console.log(picOfElements);
 
 }
@@ -250,6 +252,8 @@ function savePosInStack(moveFrom, moveTo, heat) {
 	posObj.confirmLeftDisplay = picOfElements.confirmLeftDisplay;
 	posObj.confirmRighttDisplay = picOfElements.confirmRighttDisplay;
 	posObj.die = picOfElements.die;
+	posObj.die1 = picOfElements.die1;
+	posObj.die2 = picOfElements.die2;
 
 	//posObj.num = moveCounter;
 	positionStack.push(posObj);
@@ -280,11 +284,13 @@ function retrivePosFromStack() {
 		}
 	}
 	loadPos(rooms);
-	if (posObj.die > 0 ) {
+	/* if (posObj.die > 0 ) {
 		die1 = posObj.die;
 	} else {
 		die2 = - posObj.die;
-	}
+	} */
+	die1 = posObj.die1;
+	die2 = posObj.die2;
 	moveCounter--;
 
 }

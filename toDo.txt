@@ -1,4 +1,4 @@
-[] undo for double dice issue
+[+] undo for double dice issue
 ___________________________________
 [+] Compact stacking
 [+] Undo button
