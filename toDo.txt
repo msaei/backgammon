@@ -3,7 +3,7 @@ ___________________________________
 [+] Compact stacking
 [+] Undo button
 [+] Eating checkers
-[ ] Start dice
+[....] Start dice
 [ ] Win gammon and bg
 [ ] double cube
 [ ] match game

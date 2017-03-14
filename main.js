@@ -12,7 +12,8 @@ $(document).ready(function(){
             
 	initBoard();
 	loadPos(intPos);
-	throwDice();
+	startDice();
+	//throwDice();
 	$('.confirm').click(function(){
 		throwDice();
 	});
@@ -427,6 +428,33 @@ function undoMove() {
 
 }
 
+function startDice() {
+	do {
+	die1 = Math.floor(Math.random() * 6 + 1);
+	die2 = Math.floor(Math.random() * 6 + 1);}
+	while (die1 == die2);
+
+	$('.die1').css('backgroundImage', diePics[die1]);
+	$('.die2').css('backgroundImage', diePics[die2]);
+
+	$('#rightArea .die1').show();
+	$('#rightArea .die2').hide();
+	$('#leftArea .die1').hide();
+	$('#leftArea .die2').show();
+
+	if (die1 > die2) {
+		$("#gameStatusBoard").html('Blue starts the game!');
+		player = -1;
+	} else {
+		$("#gameStatusBoard").html('Red starts the game!');
+		player = 1;
+	}
+	moveCounter = 0;
+	positionStack = [];
+	maxMoves = 2;
+	doubleDice = false;
+
+}
 
 
 

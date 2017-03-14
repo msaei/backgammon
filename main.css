@@ -114,3 +114,7 @@
 	position: absolute;
 	bottom: 0px;
 }
+
+#gameStatusBoard {
+	clear: both;
+}
