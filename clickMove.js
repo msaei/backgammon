@@ -1,23 +1,11 @@
 function roomClicked(roomId){
 	var startRoom = roomId;
-	var destRoom = roomId + player*activeDie;
+	var hop = (activeDie == 'die1' ? die1 : die2);
+	var destRoom = roomId + player*hop;
 
-	if (moveIsAlowed(startRoom, destRoom)) {
+	if (moveIsPossible(startRoom, destRoom)) {
 		var hitHappened = false;
 		
-		
-		if (player == -1) {
-			removeCheckerFrom('blue', startRoom);
-			addCheckerTo('blue', destRoom);
-		} else {
-			removeCheckerFrom('red', startRoom);
-			addCheckerTo('red', destRoom);
-		}
-		//alert($(this).data('num'));
-		//alert(ui.draggable.parent().parent().data('num'));
-		//ui.draggable.remove();
-
-
 		if(rooms[destRoom] * player == -1) {
 			//hit happend
 			hitHappened = true;
@@ -31,16 +19,97 @@ function roomClicked(roomId){
 				//add a red checker to bottom bar (red checkers bar)
 				removeCheckerFrom('red', destRoom);
 				addCheckerTo('red', 0);
-			}
-			
-			
-		} else {
-			
+			}	
 		}
 
+		if (player == -1) {
+			removeCheckerFrom('blue', startRoom);
+			addCheckerTo('blue', destRoom);
+		} else {
+			removeCheckerFrom('red', startRoom);
+			addCheckerTo('red', destRoom);
+		}
 
-		//regMove(startRoom, destRoom, hitHappened);
+		dieUsed(activeDie);
+
 	}
+}
+
+ 
+
+
+function moveIsPossible(started, droped) {
+	// check if right players checker moved
+	if (rooms[started] * player > 0) {
+		// check if die one number used
+		if(started + die1 * player == droped ) {
+			// check if drop room blocked width opponent
+			if(rooms[droped] * player > -2) {
+				return true;
+			}
+			
+		}
+		// check if die two number used
+		if(started + die2 * player == droped) {
+			// check if drop room blocked width opponent
+			if(rooms[droped] * player > -2) {
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+function dieUsed(dieName) {
+	if (dieName == 'die1'){
+		if(doubleDice) {
+			if($('.die1').css('opacity') == 1){
+				$('.die1').css('opacity',0.9);
+			} else {
+				picOfElements.die = die1;
+				die1 = 0.1;
+				setActiveDie('die2');
+				$('.die1').css('opacity',0.5)
+			}
+		} else {
+			picOfElements.die = die1;
+			die1 = 0.1;
+			setActiveDie('die2');
+			$('.die1').css('opacity',0.5);
+		}
+	} else {
+		if(doubleDice) {
+			if($('.die2').css('opacity') == 1){
+				$('.die2').css('opacity',0.9);
+			} else {
+				picOfElements.die = -die2;
+				die2 = 0.1;
+				setActiveDie('die1');
+				$('.die2').css('opacity',0.5)
+			}
+		} else {
+			picOfElements.die = -die2;
+			die2 = 0.1;
+			setActiveDie('die1');
+			$('.die2').css('opacity',0.5);
+		}
+	}
+
+	moveCounter++;
+
+	if (player == -1) {
+		$('#rightArea .undo').show();
+		if(moveCounter == maxMoves) {
+			$('#rightArea .confirm').show();
+		}
+		
+	} else {
+		$('#leftArea .undo').show();
+		if(moveCounter == maxMoves) {
+			$('#leftArea .confirm').show();
+		}
+	}		
+
 }
 
 function addCheckerTo (checkerColor, roomId) {

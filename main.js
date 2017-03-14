@@ -465,14 +465,14 @@ function startDice() {
 }
 
 function setActiveDie(activeDieName){
-	$('.die1 , die2').removeClass('activeDie');
+	$('.die1 , .die2').removeClass('activeDie');
 	if (activeDieName == 'die1') {
 		$('.die1').addClass('activeDie');
-		activeDie = die1;
+		activeDie = 'die1';
 	} 
 	if (activeDieName == 'die2') {
 		$('.die2').addClass('activeDie');
-		activeDie = die2;
+		activeDie = 'die2';
 	}
 }
 
