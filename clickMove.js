@@ -8,6 +8,7 @@ function roomClicked(roomId){
 		
 		if(rooms[destRoom] * player == -1) {
 			//hit happend
+
 			hitHappened = true;
 			if (player == 1 ){
 				//remove checker from the destination room
@@ -116,8 +117,8 @@ function addCheckerTo (checkerColor, roomId) {
 
 	var Element ;
 	var roomName = '#room' + roomId ;
-	if (roomId == 25) {roomName = 'topBar';}
-	if (roomId == 0) {roomName = 'bottomBar';}
+	if (roomId == 25) {roomName = '#topBar';}
+	if (roomId == 0) {roomName = '#bottomBar';}
 
 	if (checkerColor == 'red') {
 		// add a red checker to room
@@ -144,5 +145,5 @@ function removeCheckerFrom (checker, roomId) {
 		rooms[roomId] += 1;
 	}
 	var roomName = '#room' + roomId ;
-	$(roomName).children().find('div:eq(1)').remove();
+	$(roomName).children().find('div:eq(0)').remove();
 }
