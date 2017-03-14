@@ -75,6 +75,11 @@
  	margin-left: 10px;
  	 }
 
+ .activeDie {
+ 	border-color: #ffff33;
+ 	border-width: 4px;
+ }
+
  .confirm {
  	height: 30px;
  	width:60px;

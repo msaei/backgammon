@@ -3,13 +3,13 @@ ___________________________________
 [+] Compact stacking
 [+] Undo button
 [+] Eating checkers
-[....] Start dice
+[+] Start dice
 [ ] Win gammon and bg
 [ ] double cube
 [ ] match game
 [ ] no possible move
 [ ] forced move
-[ ] click move
+[....] click move
 [ ] move log
 [ ] animate move
 [ ] fancy graphic and sounds

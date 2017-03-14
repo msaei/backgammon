@@ -2,6 +2,7 @@ let intPos = [0, 2, 0, 0, 0, 0, -5, 0, -3, 0, 0, 0, 5, -5, 0, 0, 0, 3, 0, 5, 0, 
 let testPos = [0, 0, -6, -6, -6, -6, -6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 0, 0, 0 , 0];
 var rooms = [];
 var die1, die2;
+var activeDie;
 var doubleDice = false;
 var player = 1;
 var moveCounter = 0;

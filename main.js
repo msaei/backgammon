@@ -18,8 +18,15 @@ $(document).ready(function(){
 		throwDice();
 	});
 
+
 	$('.undo').click(function(){
 		retrivePosFromStack();
+	});
+
+	$('.room').click(function(){
+		//console.log($(this).data('num') + " clicked");
+		roomClicked($(this).data('num'));
+
 	});
 
 	$('#passDice').click(function(){
@@ -449,6 +456,7 @@ function startDice() {
 		$("#gameStatusBoard").html('Red starts the game!');
 		player = 1;
 	}
+	setActiveDie((die2>die1 ? 'die2' : 'die1'));
 	moveCounter = 0;
 	positionStack = [];
 	maxMoves = 2;
@@ -456,16 +464,28 @@ function startDice() {
 
 }
 
-
+function setActiveDie(activeDieName){
+	$('.die1 , die2').removeClass('activeDie');
+	if (activeDieName == 'die1') {
+		$('.die1').addClass('activeDie');
+		activeDie = die1;
+	} 
+	if (activeDieName == 'die2') {
+		$('.die2').addClass('activeDie');
+		activeDie = die2;
+	}
+}
 
 function throwDice() {
 	
 	player = player * -1;
 	moveCounter = 0;
 	positionStack = [];
+	//activeDie = "die1";
 	die1 = Math.floor(Math.random() * 6 + 1);
 	die2 = Math.floor(Math.random() * 6 + 1);
-	
+	setActiveDie((die2>die1 ? 'die2' : 'die1'));
+
 	if (die1 == die2) { 
 		maxMoves = 4;
 		doubleDice = true;
