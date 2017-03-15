@@ -221,4 +221,15 @@ function addCheckerToHome(checkerColor) {
 		Element = '<div class="homedChecker blue"></div>';
 		$('#blueHome').children().append(Element);
 	}
+
+	checkGameStatus();
+}
+
+function checkGameStatus(){
+	if (rooms[26] == 15){
+		$("#gameStatusBoard").html('Red Won!');
+	}
+	if (rooms[27] == -15){
+		$("#gameStatusBoard").html('Blue Won!');
+	}
 }
