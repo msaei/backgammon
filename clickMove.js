@@ -4,6 +4,7 @@ function roomClicked(roomId){
 	var destRoom = roomId + player*hop;
 
 	if (moveIsPossible(startRoom, destRoom)) {
+		takePicOfElements();
 		var hitHappened = false;
 		
 		if(rooms[destRoom] * player == -1) {
@@ -32,6 +33,7 @@ function roomClicked(roomId){
 		}
 
 		dieUsed(activeDie);
+		savePosInStack(startRoom, destRoom, hitHappened);
 
 	}
 }
@@ -145,5 +147,7 @@ function removeCheckerFrom (checker, roomId) {
 		rooms[roomId] += 1;
 	}
 	var roomName = '#room' + roomId ;
+	if (roomId == 25) {roomName = '#topBar';}
+	if (roomId == 0) {roomName = '#bottomBar';}
 	$(roomName).children().find('div:eq(0)').remove();
 }

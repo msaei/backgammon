@@ -251,6 +251,7 @@ function takePicOfElements() {
 	picOfElements.confirmRighttDisplay = $('#rightArea .confirm').css('display');
 	picOfElements.die1 = die1;
 	picOfElements.die2 = die2;
+	picOfElements.activeDie = activeDie;
 	//console.log(picOfElements);
 
 }
@@ -271,6 +272,7 @@ function savePosInStack(moveFrom, moveTo, heat) {
 	posObj.die = picOfElements.die;
 	posObj.die1 = picOfElements.die1;
 	posObj.die2 = picOfElements.die2;
+	posObj.activeDie = picOfElements.activeDie;
 
 	//posObj.num = moveCounter;
 	positionStack.push(posObj);
@@ -283,6 +285,7 @@ function retrivePosFromStack() {
 	//pop position object from stack
 	var posObj = positionStack.pop();
 	//change elements according to position obj
+	setActiveDie(posObj.activeDie);
 	
 	$('.die1').css('opacity', posObj.die1Opacity);
 	$('.die2').css('opacity', posObj.die2Opacity);
@@ -290,22 +293,23 @@ function retrivePosFromStack() {
 	$('#rightArea .undo').css('display', posObj.undoRighttDisplay);
 	$('#leftArea .confirm').css('display', posObj.confirmLeftDisplay);
 	$('#rightArea .confirm').css('display', posObj.confirmRighttDisplay);
-	rooms[posObj.movedFrom] += player;
-	rooms[posObj.movedTo] -= player;
+	//rooms[posObj.movedFrom] += player;
+	addCheckerTo((player ==1 ? 'red' : 'blue'), posObj.movedFrom);
+	//rooms[posObj.movedTo] -= player;
+	removeCheckerFrom((player == 1 ? 'red' : 'blue'), posObj.movedTo);
 	if (posObj.heated) {
-		rooms[posObj.movedTo] = -player;
+		//rooms[posObj.movedTo] = -player;
+		addCheckerTo((player == -1 ? 'red' : 'blue'), posObj.movedTo);
 		if (player == 1) {
-			rooms[25] = rooms[25] + player;
+			//rooms[25] = rooms[25] + player;
+			removeCheckerFrom('blue', 25)
 		}else {
-			rooms[0] = rooms[0] + player;
+			//rooms[0] = rooms[0] + player;
+			removeCheckerFrom('red', 0)
 		}
 	}
-	loadPos(rooms);
-	/* if (posObj.die > 0 ) {
-		die1 = posObj.die;
-	} else {
-		die2 = - posObj.die;
-	} */
+	//loadPos(rooms);
+	
 	die1 = posObj.die1;
 	die2 = posObj.die2;
 	moveCounter--;
