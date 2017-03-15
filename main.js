@@ -298,6 +298,17 @@ function retrivePosFromStack() {
 	$('#rightArea .undo').css('display', posObj.undoRighttDisplay);
 	$('#leftArea .confirm').css('display', posObj.confirmLeftDisplay);
 	$('#rightArea .confirm').css('display', posObj.confirmRighttDisplay);
+	if(posObj.movedTo > 24){
+		//put a checker back to room which started before
+		addCheckerTo('red', posObj.movedFrom);
+		// remove a checker from redHome
+		removeCheckerFromHome('red');
+	} else if (posObj.movedTo < 1) {
+		//put a checker back to room which started before
+		addCheckerTo('blue', posObj.movedFrom);
+		//remove a checker from blue home
+		removeCheckerFromHome('blue');
+	} else {
 	//put a checker back to room which started before
 	addCheckerTo((player == 1 ? 'red' : 'blue'), posObj.movedFrom);
 	//take off the last checker which moved to before
@@ -312,6 +323,7 @@ function retrivePosFromStack() {
 			//take the hited checker off bar
 			removeCheckerFrom('red', 0)
 		}
+	}
 	}
 	//loadPos(rooms);
 	console.log(rooms);

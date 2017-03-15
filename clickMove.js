@@ -196,6 +196,20 @@ function removeCheckerFrom (checkerColor, roomId) {
 	$(roomName).children().find('div:eq(0)').remove();
 }
 
+function removeCheckerFromHome(checkerColor){
+	var homeName;
+	if (checkerColor == 'red') {
+		rooms[26] += -1;
+		homeName = '#redHome';
+	} else {
+		rooms[27] += 1;
+		homeName = '#blueHome';
+	}
+
+	$(homeName).children().find('div:eq(0)').remove();
+
+}
+
 function addCheckerToHome(checkerColor) {
 	var Element ;
 	if (checkerColor == 'red') {
