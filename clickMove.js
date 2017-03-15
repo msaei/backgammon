@@ -6,6 +6,21 @@ function roomClicked(roomId){
 	if (moveIsPossible(startRoom, destRoom)) {
 		takePicOfElements();
 		var hitHappened = false;
+		// check if bearing off happened
+		if ( destRoom < 1 || destRoom > 24){
+			if (player == 1) {
+				//remove a red checker from start point
+				removeCheckerFrom('red', startRoom);
+				//add a red off checker to red home
+				addCheckerToHome('red');
+			} else {
+				//remove a blue checker from start point
+				removeCheckerFrom('blue', startRoom);
+				//add a blue off checker to blue home
+				addCheckerToHome('blue');
+			}
+
+		} else {
 		
 		if(rooms[destRoom] * player == -1) {
 			//hit happend
@@ -36,7 +51,7 @@ function roomClicked(roomId){
 			removeCheckerFrom('red', startRoom);
 			addCheckerTo('red', destRoom);
 		}
-
+		}
 		dieUsed(activeDie);
 		savePosInStack(startRoom, destRoom, hitHappened);
 
@@ -52,23 +67,44 @@ function moveIsPossible(started, droped) {
 		// check if any checkers is on bar 
 		if((player == 1) && (rooms[0] != 0) && (started != 0)){return false;}
 		if((player == -1) && (rooms[25] != 0) && (started != 25)){ return false;}
-		// check if die one number used
-		if(started + die1 * player == droped ) {
-			// check if drop room blocked width opponent
-			if(rooms[droped] * player > -2) {
+		// check if red trys to bear off
+		if(droped < 1 && player == -1 && isAllHome(-1)){ 
+			if (droped == 0) {
 				return true;
+			} else {
+				return isLastChecker(started);
 			}
+		}
+		// check if blue trys to bear off
+		if(droped > 24 && player == 1 && isAllHome(1)){ 
 			
-		}
-		// check if die two number used
-		if(started + die2 * player == droped) {
-			// check if drop room blocked width opponent
-			if(rooms[droped] * player > -2) {
+			if (droped == 25) {
 				return true;
+			} else {
+				return isLastChecker(started);
 			}
 		}
+
+		// check if drop room is in board and not blocked width opponent
+		if(rooms[droped] * player > -2 && droped > 0 && droped < 25) {return true;}	
 	}
 	return false;
+}
+
+function isAllHome(playerId) {
+	checkerInHome = 0;
+	if (playerId == 1){
+		for(i=19; i<25; i++){
+			if(rooms[i]>0){checkerInHome += rooms[i];}
+		}
+		checkerInHome += rooms[26]
+	} else {
+		for(i=1; i<7; i++){
+				if(rooms[i]<0){checkerInHome += -rooms[i];}
+		}
+		checkerInHome += -rooms[27];
+	}
+	return (checkerInHome == 15);			
 }
 
 function dieUsed(dieName) {
@@ -158,4 +194,17 @@ function removeCheckerFrom (checkerColor, roomId) {
 	if (roomId == 25) {roomName = '#topBar';}
 	if (roomId == 0) {roomName = '#bottomBar';}
 	$(roomName).children().find('div:eq(0)').remove();
+}
+
+function addCheckerToHome(checkerColor) {
+	var Element ;
+	if (checkerColor == 'red') {
+		rooms[26] += 1;
+		Element = '<div class="homedChecker red"></div>';
+		$('#redHome').children().append(Element);
+	} else {
+		rooms[27] += -1;
+		Element = '<div class="homedChecker blue"></div>';
+		$('#blueHome').children().append(Element);
+	}
 }

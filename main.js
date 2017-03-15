@@ -11,7 +11,7 @@ $(document).ready(function(){
         //$(".playSound").click(function() {
             
 	initBoard();
-	loadPos(intPos);
+	loadPos(testPos);
 	startDice();
 	//throwDice();
 	$('.confirm').click(function(){
