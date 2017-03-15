@@ -24,9 +24,13 @@ $(document).ready(function(){
 	});
 
 	$('.room').click(function(){
-		//console.log($(this).data('num') + " clicked");
 		roomClicked($(this).data('num'));
-
+	});
+	$('#topBar').click(function(){
+		roomClicked(25);
+	});
+	$('#bottomBar').click(function(){
+		roomClicked(0);
 	});
 
 	$('#passDice').click(function(){

@@ -4,6 +4,8 @@ ___________________________________
 [+] Undo button
 [+] Eating checkers
 [+] Start dice
+[ ] room number
+[ ] pip counter
 [ ] Win gammon and bg
 [ ] double cube
 [ ] match game
@@ -14,6 +16,7 @@ ___________________________________
 [ ] animate move
 [ ] fancy graphic and sounds
 [ ]	game status bar
+[ ] possible move indicator on hover
 [ ] (online games)
 [ ] (...)
 _________________________

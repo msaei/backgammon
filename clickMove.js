@@ -49,6 +49,9 @@ function roomClicked(roomId){
 function moveIsPossible(started, droped) {
 	// check if right players checker moved
 	if (rooms[started] * player > 0) {
+		// check if any checkers is on bar 
+		if((player == 1) && (rooms[0] != 0) && (started != 0)){return false;}
+		if((player == -1) && (rooms[25] != 0) && (started != 25)){ return false;}
 		// check if die one number used
 		if(started + die1 * player == droped ) {
 			// check if drop room blocked width opponent
