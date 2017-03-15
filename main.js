@@ -277,6 +277,7 @@ function savePosInStack(moveFrom, moveTo, heat) {
 	//posObj.num = moveCounter;
 	positionStack.push(posObj);
 	console.log(positionStack);
+	console.log(rooms);
 
 	//push object to stack array
 }
@@ -293,22 +294,23 @@ function retrivePosFromStack() {
 	$('#rightArea .undo').css('display', posObj.undoRighttDisplay);
 	$('#leftArea .confirm').css('display', posObj.confirmLeftDisplay);
 	$('#rightArea .confirm').css('display', posObj.confirmRighttDisplay);
-	//rooms[posObj.movedFrom] += player;
-	addCheckerTo((player ==1 ? 'red' : 'blue'), posObj.movedFrom);
-	//rooms[posObj.movedTo] -= player;
+	//put a checker back to room which started before
+	addCheckerTo((player == 1 ? 'red' : 'blue'), posObj.movedFrom);
+	//take off the last checker which moved to before
 	removeCheckerFrom((player == 1 ? 'red' : 'blue'), posObj.movedTo);
 	if (posObj.heated) {
-		//rooms[posObj.movedTo] = -player;
+		//bring back hited checker to ex place
 		addCheckerTo((player == -1 ? 'red' : 'blue'), posObj.movedTo);
 		if (player == 1) {
-			//rooms[25] = rooms[25] + player;
+			//take the hited checker off bar
 			removeCheckerFrom('blue', 25)
 		}else {
-			//rooms[0] = rooms[0] + player;
+			//take the hited checker off bar
 			removeCheckerFrom('red', 0)
 		}
 	}
 	//loadPos(rooms);
+	console.log(rooms);
 	
 	die1 = posObj.die1;
 	die2 = posObj.die2;

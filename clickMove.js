@@ -12,12 +12,12 @@ function roomClicked(roomId){
 
 			hitHappened = true;
 			if (player == 1 ){
-				//remove checker from the destination room
-				//add a checker to topbar (blue checkers bar)
+				//remove blue checker from the destination room
+				//add a ble checker to topbar (blue checkers bar)
 				removeCheckerFrom('blue', destRoom);
 				addCheckerTo('blue', 25);
 			}else {
-				//remove checker from the destination room
+				//remove red checker from the destination room
 				//add a red checker to bottom bar (red checkers bar)
 				removeCheckerFrom('red', destRoom);
 				addCheckerTo('red', 0);
@@ -25,9 +25,14 @@ function roomClicked(roomId){
 		}
 
 		if (player == -1) {
+			//remove a blue checker from start room
+			//and add a blue checker to destination room
 			removeCheckerFrom('blue', startRoom);
 			addCheckerTo('blue', destRoom);
+
 		} else {
+			//remove a red checker from start room
+			//and add a red checker to destination room
 			removeCheckerFrom('red', startRoom);
 			addCheckerTo('red', destRoom);
 		}
@@ -140,8 +145,8 @@ function addCheckerTo (checkerColor, roomId) {
 			helper: 'original'});
 }
 
-function removeCheckerFrom (checker, roomId) {
-	if (checker = 'red') {
+function removeCheckerFrom (checkerColor, roomId) {
+	if (checkerColor == 'red') {
 		rooms[roomId] -= 1;
 	} else {
 		rooms[roomId] += 1;
