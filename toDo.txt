@@ -11,7 +11,7 @@ ___________________________________
 [ ] match game
 [ ] no possible move
 [ ] forced move
-[....] click move
+[+] click move
 [ ] move log
 [ ] animate move
 [ ] fancy graphic and sounds

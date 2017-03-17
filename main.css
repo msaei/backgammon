@@ -25,18 +25,39 @@
  }
 
  .room {
- 	height: 238px;
-	width: 38px;
+ 	height: 240px;
+	width: 40px;
 	background-color: gray;
 	float: left;
 	position: relative;
-	border: black solid 1px;
+	
+ }
+
+ .topRed {
+ 	background-image: url(images/topRed.png);
+ 	background-size: cover;
+ }
+
+ .topBlue {
+ 	background-image: url(images/topBlue.png);
+ 	background-size: cover;
+ }
+
+ .botBlue {
+ 	background-image: url(images/botBlue.png);
+ 	background-size: cover;
+ }
+
+ .botRed {
+ 	background-image: url(images/botRed.png);
+ 	background-size: cover;
  }
 
  .midroom {
  	height: 40px;
  	width: 240px;
- 	background-color: gray;
+ 	background-size: cover;
+ 	background-image: url(images/board.png);
  	float: left;
  }
 

@@ -23,10 +23,13 @@ function initBoard() {
 
 	//rooms 13-18 add to board
 	for(i=13; i<19; i++) {
+		var backGroundClass = (i%2 == 0 ? 'topRed' : 'topBlue');
+		//alert(i + backGroundClass)
 		$('<div class="room"><div class="top"></div></div>')
 		.data('num', i)
 		.attr('id', 'room'+i)
-		.appendTo('#gameBoard');
+		.appendTo('#gameBoard')
+		.addClass(backGroundClass);
 	}
 
 	//top middle bar add to board
@@ -36,10 +39,12 @@ function initBoard() {
 
 	//rooms 19-24 add to board
 	for(i=19; i<25; i++) {
+		var backGroundClass = (i%2 == 0 ? 'topRed' : 'topBlue');
 		$('<div class="room"><div class="top"></div></div>')
 		.data('num', i)
 		.attr('id', 'room'+i)
-		.appendTo('#gameBoard');
+		.appendTo('#gameBoard')
+		.addClass(backGroundClass);
 	}
 
 	//top right bar add to board
@@ -67,10 +72,12 @@ function initBoard() {
 
 	//room 7-12 add board
 	for(i=12; i>6; i--) {
+		var backGroundClass = (i%2 == 0 ? 'botRed' : 'botBlue');
 		$('<div class="room"><div class="bottom"></div></div>')
 		.data('num', i)
 		.attr('id', 'room'+i)
-		.appendTo('#gameBoard');
+		.appendTo('#gameBoard')
+		.addClass(backGroundClass);
 	}
 
 	//middle bar add to board
@@ -80,10 +87,12 @@ function initBoard() {
 
 	//room 1-6 add to board
 	for(i=6; i>0; i--) {
+		var backGroundClass = (i%2 == 0 ? 'botRed' : 'botBlue');
 		$('<div class="room"><div class="bottom"></div></div>')
 		.data('num', i)
 		.attr('id', 'room'+i)
-		.appendTo('#gameBoard');
+		.appendTo('#gameBoard')
+		.addClass(backGroundClass);
 	}
 
 	//bottom right bar add to board
