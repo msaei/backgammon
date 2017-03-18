@@ -17,7 +17,13 @@ $(document).ready(function(){
 	$('.confirm').click(function(){
 		throwDice();
 	});
+	$('.die1').click(function(){
+		setActiveDie('die1');
+	});
 
+	$('.die2').click(function(){
+		setActiveDie('die2');
+	});
 
 	$('.undo').click(function(){
 		retrivePosFromStack();
@@ -488,11 +494,11 @@ function startDice() {
 
 function setActiveDie(activeDieName){
 	$('.die1 , .die2').removeClass('activeDie');
-	if (activeDieName == 'die1') {
+	if (activeDieName == 'die1' && $('.die1').css('opacity') > 0.5) {
 		$('.die1').addClass('activeDie');
 		activeDie = 'die1';
 	} 
-	if (activeDieName == 'die2') {
+	if (activeDieName == 'die2' && $('.die2').css('opacity') > 0.5) {
 		$('.die2').addClass('activeDie');
 		activeDie = 'die2';
 	}
@@ -506,6 +512,7 @@ function throwDice() {
 	//activeDie = "die1";
 	die1 = Math.floor(Math.random() * 6 + 1);
 	die2 = Math.floor(Math.random() * 6 + 1);
+	$('.die1 , .die2').css('opacity', '1');
 	setActiveDie((die2>die1 ? 'die2' : 'die1'));
 
 	if (die1 == die2) { 
@@ -522,7 +529,7 @@ function throwDice() {
 
 	$('.confirm').hide();
 	$('.undo').hide();
-	$('.die1 , .die2').css('opacity', '1');
+	
 
 
 	if (player == -1) {
