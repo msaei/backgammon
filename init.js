@@ -18,6 +18,26 @@ var diePics = ["", 'url(images/die1.png)', 'url(images/die2.png)', 'url(images/d
 
 function initBoard() {
 	
+	//top left edge 
+	$('<div class= "edge"></div>').appendTo('#gameBoard');
+	//top left home edge
+	for(i=13; i<19; i++){
+		$('<div class= "edge"></div>')
+		.html(i)
+		.appendTo('#gameBoard');
+	}
+	//middle edge 
+	$('<div class= "edge"></div>').appendTo('#gameBoard');
+	//top right home edge
+	for(i=19; i<25; i++){
+		$('<div class= "edge"></div>')
+		.html(i)
+		.appendTo('#gameBoard');
+	}
+	//top right edge 
+	$('<div class= "edge"></div>').appendTo('#gameBoard');
+	//break div to go bottom side of board
+	$('<div class="break"></div>').appendTo('#gameBoard');
 	//top left bar add to board
 	$('<div class="bar"></div>').appendTo('#gameBoard');
 
@@ -97,7 +117,27 @@ function initBoard() {
 
 	//bottom right bar add to board
 	$('<div id="blueHome" class="bar"><div class="bottom"></div></div>').appendTo('#gameBoard');
-
+	//break div to go bottom side of board
+	$('<div class="break"></div>').appendTo('#gameBoard');
+	//bottom left edge 
+	$('<div class= "edge"></div>').appendTo('#gameBoard');
+	//top left home edge
+	for(i=12; i>6; i--){
+		$('<div class= "edge"></div>')
+		.html(i)
+		.appendTo('#gameBoard');
+	}
+	//middle edge 
+	$('<div class= "edge"></div>').appendTo('#gameBoard');
+	//top right home edge
+	for(i=6; i>0; i--){
+		$('<div class= "edge"></div>')
+		.html(i)
+		.appendTo('#gameBoard');
+	}
+	//top right edge 
+	$('<div class= "edge"></div>').appendTo('#gameBoard');
+	
 
 	// make rooms dropable
 	$(".room").droppable({ 

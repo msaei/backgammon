@@ -4,7 +4,7 @@ ___________________________________
 [+] Undo button
 [+] Eating checkers
 [+] Start dice
-[ ] room number
+[....] room number
 [ ] pip counter
 [ ] Win gammon and bg
 [ ] double cube

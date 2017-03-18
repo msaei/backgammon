@@ -8,7 +8,14 @@
 	margin-left: auto;
 	width: 630px;
 }
-
+.edge {
+	height: 30px;
+	width: 40px;
+	background-color: brown;
+	text-align: center;
+	color: white;
+	float: left;
+}
 .bar { 
 	height: 240px;
 	width: 40px;
