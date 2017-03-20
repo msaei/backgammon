@@ -5,6 +5,7 @@ ___________________________________
 [+] Eating checkers
 [+] Start dice
 [+] room number
+[.....] unify click and drag functions
 [ ] pip counter
 [ ] Win gammon and bg
 [ ] double cube
@@ -15,7 +16,7 @@ ___________________________________
 [ ] move log
 [ ] animate move
 [ ] fancy graphic and sounds
-[ ]	game status bar
+[...] game status bar
 [ ] possible move indicator on hover
 [ ] (online games)
 [ ] (...)

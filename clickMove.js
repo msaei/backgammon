@@ -58,6 +58,64 @@ function roomClicked(roomId){
 	}
 }
 
+function checkerMoved(startRoom, destRoom){
+	
+
+	if (moveIsPossible(startRoom, destRoom)) {
+		takePicOfElements();
+		var hitHappened = false;
+		// check if bearing off happened
+		if ( destRoom < 1 || destRoom > 24){
+			if (player == 1) {
+				//remove a red checker from start point
+				removeCheckerFrom('red', startRoom);
+				//add a red off checker to red home
+				addCheckerToHome('red');
+			} else {
+				//remove a blue checker from start point
+				removeCheckerFrom('blue', startRoom);
+				//add a blue off checker to blue home
+				addCheckerToHome('blue');
+			}
+
+		} else {
+		
+		if(rooms[destRoom] * player == -1) {
+			//hit happend
+
+			hitHappened = true;
+			if (player == 1 ){
+				//remove blue checker from the destination room
+				//add a ble checker to topbar (blue checkers bar)
+				removeCheckerFrom('blue', destRoom);
+				addCheckerTo('blue', 25);
+			}else {
+				//remove red checker from the destination room
+				//add a red checker to bottom bar (red checkers bar)
+				removeCheckerFrom('red', destRoom);
+				addCheckerTo('red', 0);
+			}	
+		}
+
+		if (player == -1) {
+			//remove a blue checker from start room
+			//and add a blue checker to destination room
+			removeCheckerFrom('blue', startRoom);
+			addCheckerTo('blue', destRoom);
+
+		} else {
+			//remove a red checker from start room
+			//and add a red checker to destination room
+			removeCheckerFrom('red', startRoom);
+			addCheckerTo('red', destRoom);
+		}
+		}
+		console.log((destRoom - startRoom)*player);
+		dieUsed((destRoom - startRoom)*player);
+		savePosInStack(startRoom, destRoom, hitHappened);
+
+	}
+}
  
 
 
@@ -107,8 +165,8 @@ function isAllHome(playerId) {
 	return (checkerInHome == 15);			
 }
 
-function dieUsed(dieName) {
-	if (dieName == 'die1'){
+function dieUsed(dieNum) {
+	if (dieNum == die1){
 		if(doubleDice) {
 			if($('.die1').css('opacity') == 1){
 				$('.die1').css('opacity',0.9);

@@ -30,8 +30,13 @@ $(document).ready(function(){
 	});
 
 	$('.room').click(function(){
-		roomClicked($(this).data('num'));
+		//roomClicked($(this).data('num'));
+		var startRoom = $(this).data('num');
+		var hop = (activeDie == 'die1' ? die1 : die2);
+		var destRoom = startRoom + player*hop;
+		checkerMoved(startRoom, destRoom);
 	});
+
 	$('#topBar').click(function(){
 		roomClicked(25);
 	});
@@ -51,7 +56,8 @@ $(document).ready(function(){
 function droped(event, ui) {
 	var startRoom = ui.draggable.parent().parent().data('num');
 	var dropRoom = $(this).data('num')
-	takePicOfElements();
+	//checkerMoved(startRoom, destRoom);
+	 takePicOfElements();
 	
 	if (moveIsAlowed(startRoom, dropRoom)) {
 		var hitHappened = false;
@@ -83,7 +89,7 @@ function droped(event, ui) {
 		}); 
 
 		regMove(startRoom, dropRoom, hitHappened);
-	}
+	} 
 
 }
 
@@ -100,11 +106,13 @@ function moveIsAlowed(started, droped) {
 					} else {
 						picOfElements.die = die1;
 						die1 = 0.1;
+						setActiveDie('die2');
 						$('.die1').css('opacity',0.5)
 					}
 				} else {
 					picOfElements.die = die1;
 					die1 = 0.1;
+					setActiveDie('die2');
 					$('.die1').css('opacity',0.5);
 				}
 				return true;
@@ -121,11 +129,13 @@ function moveIsAlowed(started, droped) {
 					} else {
 						picOfElements.die = -die2;
 						die2 = 0.1;
+						setActiveDie('die1');
 						$('.die2').css('opacity',0.5)
 					}
 				} else {
 					picOfElements.die = -die2;
 					die2 = 0.1;
+					setActiveDie('die1');
 					$('.die2').css('opacity',0.5);
 				}
 				
