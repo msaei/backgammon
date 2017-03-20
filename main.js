@@ -296,7 +296,7 @@ function retrivePosFromStack() {
 	//pop position object from stack
 	var posObj = positionStack.pop();
 	//change elements according to position obj
-	setActiveDie(posObj.activeDie);
+	
 	
 	$('.die1').css('opacity', posObj.die1Opacity);
 	$('.die2').css('opacity', posObj.die2Opacity);
@@ -304,6 +304,7 @@ function retrivePosFromStack() {
 	$('#rightArea .undo').css('display', posObj.undoRighttDisplay);
 	$('#leftArea .confirm').css('display', posObj.confirmLeftDisplay);
 	$('#rightArea .confirm').css('display', posObj.confirmRighttDisplay);
+	setActiveDie(posObj.activeDie);
 	if(posObj.movedTo > 24){
 		//put a checker back to room which started before
 		addCheckerTo('red', posObj.movedFrom);
