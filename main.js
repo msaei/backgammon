@@ -40,9 +40,20 @@ $(document).ready(function(){
 	$('#topBar').click(function(){
 		roomClicked(25);
 	});
+
 	$('#bottomBar').click(function(){
 		roomClicked(0);
 	});
+
+	$('.room, #topBar, #bottomBar').mouseover(function(){
+
+		showDestRoom(this);
+	})
+
+	$('.room, #topBar, #bottomBar').mouseout(function(){
+
+		$('.edge').css('background', 'brown');
+	})
 
 	$('#passDice').click(function(){
 		var wannaPass = confirm('are you want to pass dice?');
@@ -51,6 +62,22 @@ $(document).ready(function(){
 		}
 	});
  });
+
+function showDestRoom(obj) {
+	
+	if ($(obj).attr("id") == 'topBar') {
+		//topBar hoverd
+	} else if ($(obj).attr("id") == 'bottomBar') {
+		//bottomBar hoverd
+	} else {
+		//one off rooms hoverd
+		var roomNumber = $(obj).data("num");
+		var destRoom = '#ind' + (roomNumber + die1 + 0);
+		console.log(destRoom);
+		$(destRoom).css('background', 'black');
+	}
+
+}
 
 
 function droped(event, ui) {

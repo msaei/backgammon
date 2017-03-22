@@ -17,7 +17,7 @@ ___________________________________
 [ ] animate move
 [ ] fancy graphic and sounds
 [...] game status bar
-[ ] possible move indicator on hover
+[...] possible move indicator on hover
 [ ] (online games)
 [ ] (...)
 _________________________

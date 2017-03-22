@@ -24,6 +24,7 @@ function initBoard() {
 	for(i=13; i<19; i++){
 		$('<div class= "edge"></div>')
 		.html(i)
+		.attr("id", 'ind' + i)
 		.appendTo('#gameBoard');
 	}
 	//middle edge 
@@ -32,6 +33,7 @@ function initBoard() {
 	for(i=19; i<25; i++){
 		$('<div class= "edge"></div>')
 		.html(i)
+		.attr("id", 'ind' + i)
 		.appendTo('#gameBoard');
 	}
 	//top right edge 
@@ -125,6 +127,7 @@ function initBoard() {
 	for(i=12; i>6; i--){
 		$('<div class= "edge"></div>')
 		.html(i)
+		.attr("id", 'ind' + i)
 		.appendTo('#gameBoard');
 	}
 	//middle edge 
@@ -133,6 +136,7 @@ function initBoard() {
 	for(i=6; i>0; i--){
 		$('<div class= "edge"></div>')
 		.html(i)
+		.attr("id", 'ind' + i)
 		.appendTo('#gameBoard');
 	}
 	//top right edge 
