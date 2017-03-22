@@ -52,7 +52,10 @@ $(document).ready(function(){
 
 	$('.room, #topBar, #bottomBar').mouseout(function(){
 
-		$('.edge').css('background', 'brown');
+		$('.edge').css('color', 'white');
+		$('#redHome').css('background', 'brown');
+		$('#blueHome').css('background', 'brown');
+
 	})
 
 	$('#passDice').click(function(){
@@ -72,9 +75,15 @@ function showDestRoom(obj) {
 	} else {
 		//one off rooms hoverd
 		var roomNumber = $(obj).data("num");
-		var destRoom = '#ind' + (roomNumber + die1 + 0);
-		console.log(destRoom);
-		$(destRoom).css('background', 'black');
+		var indicator;
+		var hop = (activeDie == 'die1' ? die1 : die2);
+		var destRoom = roomNumber + player*hop;
+		if(moveIsPossible(roomNumber, destRoom)) {
+		indicator  = '#ind' + destRoom;
+		if (destRoom > 24) {$('#redHome').css('background', 'green');}
+		if (destRoom < 1) {$('#blueHome').css('background', 'green');}
+		//console.log(indicator);
+		$(indicator).css('color', 'green');}
 	}
 
 }

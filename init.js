@@ -37,7 +37,7 @@ function initBoard() {
 		.appendTo('#gameBoard');
 	}
 	//top right edge 
-	$('<div class= "edge"></div>').appendTo('#gameBoard');
+	$('<div class= "edge"></div>').attr("id", "topEdge").appendTo('#gameBoard');
 	//break div to go bottom side of board
 	$('<div class="break"></div>').appendTo('#gameBoard');
 	//top left bar add to board
@@ -140,7 +140,7 @@ function initBoard() {
 		.appendTo('#gameBoard');
 	}
 	//top right edge 
-	$('<div class= "edge"></div>').appendTo('#gameBoard');
+	$('<div class= "edge"></div>').attr("id", "botEdge").appendTo('#gameBoard');
 	
 
 	// make rooms dropable
