@@ -48,7 +48,9 @@ $(document).ready(function(){
 	$('.room, #topBar, #bottomBar').mouseover(function(){
 
 		showDestRoom(this);
-	})
+	});
+
+
 
 	$('.room, #topBar, #bottomBar').mouseout(function(){
 
@@ -56,7 +58,7 @@ $(document).ready(function(){
 		$('#redHome').css('background', 'brown');
 		$('#blueHome').css('background', 'brown');
 
-	})
+	});
 
 	$('#passDice').click(function(){
 		var wannaPass = confirm('are you want to pass dice?');
