@@ -15,26 +15,13 @@ $(document).ready(function(){
 	startDice();
 
 	$('#gameStatusBoard').click(function(){
-		console.log("clicked");
-		$.ajax({
-		url: "http://m3hd1.com/getdice.php",
-		type: "GET",
-		error: function(xhr){
-            alert("An error occured: " + xhr.status + " " + xhr.statusText);
-        },
-		success: function(response){
-			alert(response);
-			$("#gameStatusBoard").html( "die1: " + response.die1 +
-				"<br> die2: " + response.die2 );
-
-
-		}
-	});
+		
 	});
 
 	//throwDice();
 	$('.confirm').click(function(){
-		throwDice();
+		getDice();
+		//throwDice();
 	});
 	$('.die1').click(function(){
 		setActiveDie('die1');
@@ -571,15 +558,39 @@ function setActiveDie(activeDieName){
 		activeDie = 'die2';
 	}
 }
+function getDice() {
+
+	$.ajax({
+		url: "getdice.php",
+		type: "GET",
+		dataType: "json",
+		error: function(xhr){
+            alert("An error occured: " + xhr.status + " " + xhr.statusText);
+        },
+		success: function(response){
+			//alert(response);
+			console.log( "die1: " + response.die1 +
+				" die2: " + response.die2 );
+			die1 = response.die1;
+			die2 = response.die2;
+			
+		},
+		complete: function(xhr,status){
+			throwDice();
+		}
+
+		});
+
+}
 
 function throwDice() {
-	
+	console.log("throw dise called!");
 	player = player * -1;
 	moveCounter = 0;
 	positionStack = [];
-	//activeDie = "die1";
-	die1 = Math.floor(Math.random() * 6 + 1);
-	die2 = Math.floor(Math.random() * 6 + 1);
+	activeDie = "die1";
+	//die1 = Math.floor(Math.random() * 6 + 1);
+	//die2 = Math.floor(Math.random() * 6 + 1);
 	$('.die1 , .die2').css('opacity', '1');
 	setActiveDie((die2>die1 ? 'die2' : 'die1'));
 
