@@ -13,6 +13,25 @@ $(document).ready(function(){
 	initBoard();
 	loadPos(testPos);
 	startDice();
+
+	$('#gameStatusBoard').click(function(){
+		console.log("clicked");
+		$.ajax({
+		url: "http://m3hd1.com/getdice.php",
+		type: "GET",
+		error: function(xhr){
+            alert("An error occured: " + xhr.status + " " + xhr.statusText);
+        },
+		success: function(response){
+			alert(response);
+			$("#gameStatusBoard").html( "die1: " + response.die1 +
+				"<br> die2: " + response.die2 );
+
+
+		}
+	});
+	});
+
 	//throwDice();
 	$('.confirm').click(function(){
 		throwDice();
