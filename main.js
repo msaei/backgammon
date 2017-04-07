@@ -12,7 +12,8 @@ $(document).ready(function(){
             
 	initBoard();
 	loadPos(testPos);
-	startDice();
+	getStartDice();
+	//startDice();
 
 	$('#gameStatusBoard').click(function(){
 		
@@ -518,11 +519,40 @@ function undoMove() {
 
 }
 
+function getStartDice() {
+
+	$.ajax({
+		url: "getdice.php",
+		type: "GET",
+		dataType: "json",
+		error: function(xhr){
+            alert("An error occured: " + xhr.status + " " + xhr.statusText);
+        },
+		success: function(response){
+			//alert(response);
+			console.log( "die1: " + response.die1 +
+				" die2: " + response.die2 );
+			die1 = response.die1;
+			die2 = response.die2;
+			
+		},
+		complete: function(xhr,status){
+			if(die1 == die2){
+				getStartDice();
+			} else {
+				startDice();
+			}
+		}
+
+		});
+
+}
+
 function startDice() {
-	do {
-	die1 = Math.floor(Math.random() * 6 + 1);
-	die2 = Math.floor(Math.random() * 6 + 1);}
-	while (die1 == die2);
+	//do {
+	//die1 = Math.floor(Math.random() * 6 + 1);
+	//die2 = Math.floor(Math.random() * 6 + 1);}
+	//while (die1 == die2);
 
 	$('.die1').css('backgroundImage', diePics[die1]);
 	$('.die2').css('backgroundImage', diePics[die2]);
