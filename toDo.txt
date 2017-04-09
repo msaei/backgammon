@@ -1,3 +1,6 @@
+https://coggle.it/diagram/WOmT2yPVCgABmcq_
+
+
 [+] undo for double dice issue
 ___________________________________
 [+] Compact stacking
